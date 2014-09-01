@@ -154,20 +154,20 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                         anchor : '45%',
                                         allowBlank:false 
                                     },
-                                    {
-                                        xtype : 'numberfield',
-                                        name:'precio1',
-                                        minValue : 0,
-                                        fieldLabel: 'Precio con Chocolate Clásico',
-                                        anchor : '45%'
-                                    },
-                                    {
-                                        xtype : 'numberfield',
-                                        name:'precio2',
-                                        minValue : 0,
-                                        fieldLabel: 'Precio con Chocolate montblanc',
-                                        anchor : '45%'
-                                    },
+//                                    {
+//                                        xtype : 'numberfield',
+//                                        name:'precio1',
+//                                        minValue : 0,
+//                                        fieldLabel: 'Precio con Chocolate Clásico',
+//                                        anchor : '45%'
+//                                    },
+//                                    {
+//                                        xtype : 'numberfield',
+//                                        name:'precio2',
+//                                        minValue : 0,
+//                                        fieldLabel: 'Precio con Chocolate montblanc',
+//                                        anchor : '45%'
+//                                    },
                                     {
                                         xtype : 'numberfield',
                                         name:'cantidad',
