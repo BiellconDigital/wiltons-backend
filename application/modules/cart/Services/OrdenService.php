@@ -430,7 +430,7 @@ class OrdenService {
         $servicio= URL_WSGENERAETICKET_VISA;
         $clientVisa = new \Zend_Soap_Client($servicio);
         
-        $datoComercio= "DELIBOUQUET";
+        $datoComercio= "WILTONS";
 
         //Se arma el XML de requerimiento
         $xmlIn = "";

@@ -203,6 +203,10 @@ Ext.define("Tonyprr.mvc.App",{
                         expanded: true,
                         children: [
                             {
+                                text: 'Promociones',
+                                leaf: true
+                            }
+                            ,{
                                 text: 'Gestión de Clientes',
                                 expanded: true,
                                 children: [
@@ -263,6 +267,8 @@ Ext.define("Tonyprr.mvc.App",{
                             fn: function(view,record,item,index) {
                                 switch (record.get('text')) {
                                     case 'Clientes' : me.agregarTab('Clientes', 'tabm_cliente', '', true,'Cliente', 'web');
+                                    break;
+                                    case 'Promociones' : me.agregarTab('Promociones', 'tabm_promociones', '', true,'Contenido1', 'web');
                                     break;
 //                                    case 'Marcas de Productos' : me.agregarTab('Marcas', 'tabm_marca', '', true, 'Marca', 'cart');
 //                                    break;

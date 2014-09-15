@@ -153,10 +153,22 @@ class CmsUbigeo extends \web\Entity\CmsUbigeo implements \Doctrine\ORM\Proxy\Pro
         return parent::getPais();
     }
 
+    public function setCostoEnvio($costoEnvio)
+    {
+        $this->__load();
+        return parent::setCostoEnvio($costoEnvio);
+    }
+
+    public function getCostoEnvio()
+    {
+        $this->__load();
+        return parent::getCostoEnvio();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'codPostal', 'dpto', 'prov', 'dist', 'cregion', 'csubregion', 'codDpto', 'codProv', 'pais');
+        return array('__isInitialized__', 'codPostal', 'dpto', 'prov', 'dist', 'cregion', 'csubregion', 'codDpto', 'codProv', 'costoEnvio', 'pais');
     }
 
     public function __clone()

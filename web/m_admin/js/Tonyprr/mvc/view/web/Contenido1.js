@@ -99,7 +99,7 @@ Ext.define("Tonyprr.mvc.view.web.Contenido1", {
                 items: [
                     '-',
                     {
-                        text:'Agregar Proyecto',
+                        text:'Agregar Promoción',
                         iconCls: 'add'
                     },'-'
                 ]
@@ -156,7 +156,7 @@ Ext.define("Tonyprr.mvc.view.web.Contenido1", {
                     ]
                 },
                 {dataIndex: 'idcontent',header : 'ID',width:26, sortable : true},
-                {dataIndex: 'nombre_content',header : 'Descripción',width: 235,sortable : true},
+                {dataIndex: 'adicional1',header : 'Descripción',width: 235,sortable : true},
 //                {dataIndex: 'precio',header : 'Precio',width: 70,sortable : true},
 //                {dataIndex: 'cantidad',header : 'Stock',width: 70,sortable : true},
 //                {dataIndex: 'cantidadVendidos',header : 'Vendidos',width: 70,sortable : true},

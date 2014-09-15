@@ -30,8 +30,18 @@ class Content {
      * @return array
      */
     public function aList($idcontCate=NULL, $oLanguage=1, $estado="TODOS", $pageStart=NULL, $pageLimit=NULL, $textoBusqueda=NULL) {
-        
-        $aResult = $this->_em->getRepository($this->_entityName)->listRecords($idcontCate, $oLanguage, $estado, $pageStart, $pageLimit, $textoBusqueda);
+        $toArray = true;
+        $aResult = $this->_em->getRepository($this->_entityName)->listRecords($toArray, $idcontCate, $oLanguage, $estado, $pageStart, $pageLimit, $textoBusqueda);
+        return $aResult;
+    }
+    
+    /**
+     * 
+     * @return array
+     */
+    public function aListXTipo($idtipo=NULL, $oLanguage=1, $estado="TODOS", $pageStart=NULL, $pageLimit=NULL, $textoBusqueda=NULL) {
+        $toArray = true;
+        $aResult = $this->_em->getRepository($this->_entityName)->listRecordsXTipo($toArray, $idtipo, $oLanguage, $estado, $pageStart, $pageLimit, $textoBusqueda);
         return $aResult;
     }
     
@@ -85,6 +95,12 @@ class Content {
             if( isset($formData['adicional1']) ) $oContent->setAdicional1($formData['adicional1']);
             if( isset($formData['adicional2']) ) $oContent->setAdicional2($formData['adicional2']);
             if( isset($formData['adicional3']) ) $oContent->setAdicional3($formData['adicional3']);
+            if( isset($formData['adicional4']) ) $oContent->setAdicional4($formData['adicional4']);
+            if( isset($formData['adicional5']) ) $oContent->setAdicional5($formData['adicional5']);
+            if( isset($formData['adicional6']) ) $oContent->setAdicional6($formData['adicional6']);
+            if( isset($formData['adicional7']) ) $oContent->setAdicional7($formData['adicional7']);
+            if( isset($formData['adicional8']) ) $oContent->setAdicional8($formData['adicional8']);
+            if( isset($formData['adicional9']) ) $oContent->setAdicional9($formData['adicional9']);
             if( isset($formData['fechainipub']) )  $oContent->setFechainipub( new \DateTime($formData['fechainipub']) );
             if( isset($formData['fechafinpub']) )  $oContent->setFechafinpub( new \DateTime($formData['fechafinpub']) );
                 
@@ -140,7 +156,7 @@ class Content {
             }
             return $oContent;
         } catch(\Exception $e) {
-            throw new \Exception("Error al guardar registro. ", 1);//$e->getMessage()
+            throw new \Exception("Error al guardar registro. " . $e->getMessage(), 1);//$e->getMessage()
         }
     }
     

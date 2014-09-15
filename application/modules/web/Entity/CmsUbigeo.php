@@ -287,4 +287,34 @@ class CmsUbigeo
     {
         return $this->pais;
     }
+    /**
+     * @var float $costoEnvio
+     *
+     * @ORM\Column(name="__costo_envio", type="float", nullable=true)
+     */
+    private $costoEnvio;
+
+
+    /**
+     * Set costoEnvio
+     *
+     * @param float $costoEnvio
+     * @return CmsUbigeo
+     */
+    public function setCostoEnvio($costoEnvio)
+    {
+        $this->costoEnvio = $costoEnvio;
+    
+        return $this;
+    }
+
+    /**
+     * Get costoEnvio
+     *
+     * @return float 
+     */
+    public function getCostoEnvio()
+    {
+        return $this->costoEnvio;
+    }
 }

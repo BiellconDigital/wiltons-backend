@@ -25,7 +25,7 @@ class Cart_ConfirmarCompraController extends Zend_Controller_Action
                     $srvOrden = new OrdenService();
                     $oOrden = $srvOrden->terminarTransaccionVisa($cartData['eticket']);
 
-                    $this->_redirect("http://www.delibouquet.pe/cart/#/confirmacion-compra?eticket=" . $cartData['eticket']);
+                    $this->_redirect("http://wiltons.pe/cart/#/confirmacion-compra?eticket=" . $cartData['eticket']);
                 } catch(ValidacionException $e) {
                     echo $e->getMessage();
                 } catch(\Exception $e) {

@@ -54,6 +54,10 @@ web\Entity\CmsUbigeo:
             fixed: false
             nullable: true
             column: __cod_prov
+        costoEnvio:
+            type: float
+            nullable: true
+            column: __costo_envio
     indexes:
         ubig_dpto_idx:
             columns: [ __dpto ]

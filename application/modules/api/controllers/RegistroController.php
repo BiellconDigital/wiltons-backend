@@ -36,7 +36,7 @@ class Api_RegistroController extends Zend_Controller_Action
             //$user['nombres'] = $user['username'];
             $user['idtipoDocumento'] = $user['tipoDocumento']['idtipoDocumento'];
 //            fechaNacimiento
-            $genClave = 'delib' . rand(10000, 99999);
+            $genClave = 'wiltons' . rand(10000, 99999);
             //unset ($formData['estado']);
             $user['clave'] = md5($genClave);
             
@@ -59,7 +59,7 @@ class Api_RegistroController extends Zend_Controller_Action
             $objEmail->setBodyHtml($objEmail->convertString($mensaje));
             $objEmail->setFrom($objEmail->getAccount(), $objEmail->convertString($objEmail->getName()) );
             $objEmail->addTo($oCliente->getEmail());
-            $objEmail->setSubject($objEmail->convertString("Delibouquet - Activación de cuenta"));
+            $objEmail->setSubject($objEmail->convertString("Wilton's - Activación de cuenta"));
             $objEmail->send($objEmail->getMailTrans());
 
             $result['idCliente'] = $oCliente->getIdCliente();

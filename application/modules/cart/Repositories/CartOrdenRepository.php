@@ -352,14 +352,14 @@ class CartOrdenRepository extends EntityRepository
                 $oOrden = $qyOrden->getArrayResult();
                 $objRecords = \Tonyprr_lib_Records::getInstance();
                 if (count($oOrden) != 1)
-                    throw new \Exception('No existe un registro pendiente de confirmaci�n de pago.',10);
+                    throw new \Exception('No existe un registro pendiente de confirmación de pago.',10);
                 $objRecords->normalizeRecord($oOrden[0]);
                 $oOrden = $oOrden[0];
             } else {
                 try {
                     $oOrden = $qyOrden->getSingleResult();
                 } catch(\Doctrine\ORM\NoResultException $e) {
-                    throw new \Exception('No existe un registro pendiente de confirmaci�n de pago.',10);
+                    throw new \Exception('No existe un registro pendiente de confirmación de pago.',10);
                 }
             }
             return $oOrden;
@@ -384,14 +384,14 @@ class CartOrdenRepository extends EntityRepository
                 $oOrden = $qyOrden->getArrayResult();
                 $objRecords = \Tonyprr_lib_Records::getInstance();
                 if (count($oOrden) != 1)
-                    throw new \Exception('No existe un registro pendiente de confirmaci�n de pago.',10);
+                    throw new \Exception('No existe un registro pendiente de confirmación de pago.',10);
                 $objRecords->normalizeRecord($oOrden[0]);
                 $oOrden = $oOrden[0];
             } else {
                 try {
                     $oOrden = $qyOrden->getSingleResult();
                 } catch(\Doctrine\ORM\NoResultException $e) {
-                    throw new \Exception('No existe un registro pendiente de confirmaci�n de pago.',10);
+                    throw new \Exception('No existe un registro pendiente de confirmación de pago.',10);
                 }
             }
             return $oOrden;
@@ -470,10 +470,10 @@ class CartOrdenRepository extends EntityRepository
             $total = $oOrden->getCostoEnvio() + $oOrden->getTotalFinal();
             $mensaje = "Se ha generado un nuevo pedido: <br/><br/>";
             $mensaje .= "Nro. Orden: " . $oOrden->getIdOrden() ."<br/>";
-            $mensaje .= "Combo: " . $oOrden->getDireccionPago() ."<br/>";
+            $mensaje .= "Dirección: " . $oOrden->getDireccionPago() ."<br/>";
             $mensaje .= "Cliente: " . $oOrden->getCliente()->getNombres() . " " . $oOrden->getCliente()->getApellidoPaterno() . " " . $oOrden->getCliente()->getApellidoMaterno() . "<br/>";
-            $mensaje .= "Costo del Combo: S/. " . $oOrden->getTotalFinal() ."<br/>";
-            $mensaje .= "Costo de Env�o: S/. " . $oOrden->getCostoEnvio() ."<br/>";
+            $mensaje .= "Costo del Pedido: S/. " . $oOrden->getTotalFinal() ."<br/>";
+            $mensaje .= "Costo de Envío: S/. " . $oOrden->getCostoEnvio() ."<br/>";
             $mensaje .= "Costo Total: S/. " . $total ."<br/>";
             
             $objEmail->setBodyHtml($objEmail->convertString($mensaje));
@@ -483,7 +483,7 @@ class CartOrdenRepository extends EntityRepository
             $objEmail->send($objEmail->getMailTrans());
 
         } catch(\Exception $e) {
-            throw new \Exception('Ocurri� un error en el env�o de notificaci�n del pedido.', 1);
+            throw new \Exception('Ocurrió un error en el envío de notificación del pedido.', 1);
         }
     }
     
@@ -494,7 +494,7 @@ class CartOrdenRepository extends EntityRepository
             if(!is_null($oOrden->getFechaDeposito()))
                 $fechaDeposito = $oOrden->getFechaDeposito()->format("d-m-Y");
             $total = $oOrden->getCostoEnvio() + $oOrden->getTotalFinal();
-            $mensaje = "El Cliente ha registrado el pago ingresando el Número de Vaucher, la fecha y la hora de env�o.<br/>
+            $mensaje = "El Cliente ha registrado el pago ingresando el Número de Vaucher, la fecha y la hora de envío.<br/>
                         Proceda a verificar la Orden:<br/>";
             $mensaje .= "Nro. Orden: " . $oOrden->getIdOrden() ."<br/>";
             $mensaje .= "Combo: " . $oOrden->getDireccionPago() ."<br/>";
@@ -503,13 +503,13 @@ class CartOrdenRepository extends EntityRepository
             $mensaje .= "Fecha de Deposito: " . $fechaDeposito ."<br/>";
             $mensaje .= "Hora de Deposito: " . $oOrden->getHoraDeposito() ."<br/>";
             $mensaje .= "Costo del Combo: S/. " . $oOrden->getTotalFinal() ."<br/>";
-            $mensaje .= "Costo de Env�o: S/. " . $oOrden->getCostoEnvio() ."<br/>";
+            $mensaje .= "Costo de Envío: S/. " . $oOrden->getCostoEnvio() ."<br/>";
             $mensaje .= "Costo Total: S/. " . $total ."<br/>";
             
             $objEmail->setBodyHtml($objEmail->convertString($mensaje));
             $objEmail->setFrom($objEmail->getAccount(), $objEmail->convertString($objEmail->getName()) );
             $objEmail->addTo(EMAIL_VENTAS);//ventas.online@mpf.com.pe
-            $objEmail->setSubject($objEmail->convertString("Notificaci�n - Registro de Orden de Compra"));
+            $objEmail->setSubject($objEmail->convertString("Notificación - Registro de Orden de Compra"));
             $objEmail->send($objEmail->getMailTrans());
 
         } catch(\Exception $e) {
@@ -542,11 +542,11 @@ class CartOrdenRepository extends EntityRepository
             $objEmail->setBodyHtml($objEmail->convertString($mensaje));
             $objEmail->setFrom($objEmail->getAccount(), $objEmail->convertString($objEmail->getName()) );
             $objEmail->addTo($oOrden->getCliente()->getEmail());//ventas.online@mpf.com.pe
-            $objEmail->setSubject($objEmail->convertString("Machu Picchu Foods"));
+            $objEmail->setSubject($objEmail->convertString("Wiltons"));
             $objEmail->send($objEmail->getMailTrans());
 
         } catch(\Exception $e) {
-            throw new \Exception('Ocurrió un error en el env�o de notificaci�n del confirmaci�n de pedido.', 1);
+            throw new \Exception('Ocurrió un error en el envío de notificación del confirmación de pedido.', 1);
         }
     }
     

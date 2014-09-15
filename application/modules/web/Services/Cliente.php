@@ -194,7 +194,7 @@ class Cliente {
             $objEmail->setBodyHtml($objEmail->convertString($mensaje));
             $objEmail->setFrom($objEmail->getAccount(), $objEmail->convertString($objEmail->getName()) );
             $objEmail->addTo($user);
-            $objEmail->setSubject($objEmail->convertString("Activación de Cuenta - Delibouquet"));
+            $objEmail->setSubject($objEmail->convertString("Activación de Cuenta - Wiltons"));
             $objEmail->send($objEmail->getMailTrans());
 
             $oCliente->setEstado(1);
@@ -214,7 +214,7 @@ class Cliente {
     public function recuperarClave($email) {
         try {
 
-            $genClave = 'delib' . rand(10000, 99999);
+            $genClave = 'wiltons' . rand(10000, 99999);
             //unset ($formData['estado']);
             $clave = md5($genClave);
             
@@ -237,7 +237,7 @@ class Cliente {
             $objEmail->setBodyHtml($objEmail->convertString($mensaje));
             $objEmail->setFrom($objEmail->getAccount(), $objEmail->convertString($objEmail->getName()) );
             $objEmail->addTo($email);
-            $objEmail->setSubject($objEmail->convertString("Restauración de Clave - Delibouquet"));
+            $objEmail->setSubject($objEmail->convertString("Restauración de Clave - Wiltons"));
             $objEmail->send($objEmail->getMailTrans());
             
             $oCliente->setFechaModificacion( new \DateTime() );

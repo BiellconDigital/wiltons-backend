@@ -29,7 +29,7 @@ class CmsUbigeoRepository extends EntityRepository
         $qbPais = $this->_em->createQueryBuilder();
         $qbPais->select(
                     '
-                    u.codPostal, u.dpto, u.prov, u.dist
+                    u.codPostal, u.dpto, u.prov, u.dist, u.costoEnvio
                     ')->from($this->_entityName,'u')
                    ->orderBy('u.dist','ASC')
                     ->andWhere('u.pais = :pais')->setParameter('pais', $oPais);

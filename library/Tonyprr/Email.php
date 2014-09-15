@@ -11,7 +11,7 @@ class Tonyprr_Email extends Zend_Mail {
 
     function  __construct($user="",$pass="",$name="") {
         parent::__construct();
-        $this->name=($name!="")?$name:'Contacto Reset';
+        $this->name=($name!="")?$name:'Pedidos Web Wiltons';
             
         $this->mail=($user!="")?$user:'tonyprr@gmail.com';
         $config = array(

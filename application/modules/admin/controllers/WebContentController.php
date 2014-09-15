@@ -27,9 +27,7 @@ class Admin_WebContentController extends Zend_Controller_Action
                 $textoBusqueda = isset($data['query'])?$data['query']:NULL;
                 
                 $srvContent = new Content();
-                list($aContents, $total, $oContentCategoria) = $srvContent->aList($idcontCate, 1 ,"TODOS", $pageStart, $pageLimit, $textoBusqueda);
-                $objRecords=\Tonyprr_lib_Records::getInstance();
-                $objRecords->normalizeRecords($aContents);
+                list($aContents, $total) = $srvContent->aList($idcontCate, 1 ,"TODOS", $pageStart, $pageLimit, $textoBusqueda);
                 $result['success'] = 1;
                 $result['data'] = $aContents;
                 $result['total'] = $total;
