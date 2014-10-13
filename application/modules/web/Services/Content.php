@@ -146,6 +146,7 @@ class Content {
                     $aInfoAdj = pathinfo($_FILES['file_adjunto']['name']);
                     $nomArchivoAdj = trim("content_adj_" . time() . '_' . $oContent->getIdcontent()) .'.' . $aInfoAdj['extension'];
                     @move_uploaded_file($_FILES['file_adjunto']['tmp_name'], $this->_pathContent . $nomArchivoAdj);
+                    @unlink($this->_pathContent . trim($oContent->getAdjunto()));
                     $oContent->setAdjunto($nomArchivoAdj);
                     $subioArchivo = true;
                 }

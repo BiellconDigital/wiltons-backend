@@ -321,10 +321,28 @@ class CartProducto extends \cart\Entity\CartProducto implements \Doctrine\ORM\Pr
         return parent::getPrecio2();
     }
 
+    public function addVariante(\cart\Entity\CartProductoVariante $variantes)
+    {
+        $this->__load();
+        return parent::addVariante($variantes);
+    }
+
+    public function removeVariante(\cart\Entity\CartProductoVariante $variantes)
+    {
+        $this->__load();
+        return parent::removeVariante($variantes);
+    }
+
+    public function getVariantes()
+    {
+        $this->__load();
+        return parent::getVariantes();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'idproducto', 'codigoProducto', 'precio', 'precio1', 'precio2', 'cantidad', 'cantidadVendidos', 'peso', 'imagen', 'adjunto', 'orden', 'estado', 'fechainipub', 'fechafinpub', 'fechamodif', 'fechareg', 'languages', 'galeria', 'comentarios', 'marca', 'contcate', 'tipo');
+        return array('__isInitialized__', 'idproducto', 'codigoProducto', 'precio', 'precio1', 'precio2', 'cantidad', 'cantidadVendidos', 'peso', 'imagen', 'adjunto', 'orden', 'estado', 'fechainipub', 'fechafinpub', 'fechamodif', 'fechareg', 'languages', 'galeria', 'comentarios', 'variantes', 'marca', 'contcate', 'tipo');
     }
 
     public function __clone()

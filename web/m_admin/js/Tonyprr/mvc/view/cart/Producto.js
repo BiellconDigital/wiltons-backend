@@ -84,14 +84,19 @@ Ext.define("Tonyprr.mvc.view.cart.Producto", {
         });
         
         
-        var storeProducto = Ext.create('Tonyprr.mvc.store.cart.Producto');
+//        var storeProducto = Ext.create('Tonyprr.mvc.store.cart.Producto');
+        Ext.create('Tonyprr.mvc.store.cart.Producto', {storeId:'ProductoStore'});
+        
         panelView = Ext.create("Ext.grid.Panel", {
             frame:true,
             itemId:'viewListProdWidget',
             columnLines : true,
             autoScroll:true,
-            store: storeProducto,
-            border:false,
+            store: Ext.data.StoreManager.lookup('ProductoStore'),
+//            border:false,
+            style: {
+                width: '95%'
+            },
             dockedItems : [{
                 xtype: 'toolbar',
                 dock: 'top',
@@ -127,6 +132,10 @@ Ext.define("Tonyprr.mvc.view.cart.Producto", {
                             storeGaleria = meProd.down('dataview[itemId="viewGaleWidget"]').getStore();
                             Ext.apply( storeGaleria.getProxy().extraParams, {idproducto: idReg} );
                             storeGaleria.load();
+                            
+                            storeVariante = meProd.down('panel[itemId="panelVariantesWidget"]').getComponent(0).getStore();
+                            Ext.apply( storeVariante.getProxy().extraParams, {idproducto: idReg} );
+                            storeVariante.load();
                             
                             meProd.down('form[itemId="formWidgetMovimientoStock"]').getForm().reset();
                             storeMoviStock = meProd.down('grid[itemId="gridWidgetMovimientoStock"]').getStore();
@@ -173,22 +182,22 @@ Ext.define("Tonyprr.mvc.view.cart.Producto", {
 //                {dataIndex: 'fecharegConte',header : 'Fecha Ini.',width: 70,sortable : false,
 //                    xtype: 'datecolumn',format:'d-m-Y'}
             ],
-            plugins : [
-                {
-                    ptype: 'rowexpander',
-                    rowBodyTpl : [
-                        '<div style = "width:340px;">',
-                        '<p><b>Fecha Registro: </b>{fechareg:date("d-m-Y H:i:s")}<br/><b>Fecha Última Modificaci&oacute;n: </b>{fechamodf:date("d-m-Y H:i:s")}</p>',
-                        '<p><b>Adjunto: </b><a href="'+Tonyprr.Constants.FILES_DATA_CART+'/producto/{adjunto}" target="_blank">{adjunto}</a></p>',
-                        '<p><img src="'+Tonyprr.Constants.FILES_DATA_CART+'/producto/{imagen}" width="130" style="float:left;margin-right:5px;"/>{intro_producto}</p>',
-                        '</div>'
-                    ]
-                }
-            ],
+//            plugins : [
+//                {
+//                    ptype: 'rowexpander',
+//                    rowBodyTpl : [
+//                        '<div style = "width:340px;">',
+//                        '<p><b>Fecha Registro: </b>{fechareg:date("d-m-Y H:i:s")}<br/><b>Fecha Última Modificaci&oacute;n: </b>{fechamodf:date("d-m-Y H:i:s")}</p>',
+//                        '<p><b>Adjunto: </b><a href="'+Tonyprr.Constants.FILES_DATA_CART+'/producto/{adjunto}" target="_blank">{adjunto}</a></p>',
+//                        '<p><img src="'+Tonyprr.Constants.FILES_DATA_CART+'/producto/{imagen}" width="130" style="float:left;margin-right:5px;"/>{intro_producto}</p>',
+//                        '</div>'
+//                    ]
+//                }
+//            ],
             bbar : Ext.create('Ext.toolbar.Paging', {
                 itemId:'gridPagingWidgetProd',
                 pageSize: 15,
-                store: storeProducto,
+                store: Ext.data.StoreManager.lookup('ProductoStore'),
                 displayInfo: true
             })
         });

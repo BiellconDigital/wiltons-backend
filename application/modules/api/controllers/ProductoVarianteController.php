@@ -1,9 +1,9 @@
 <?php
 use cart\Services\Producto;
-use cart\Services\ProductoGaleria;
+use cart\Services\ProductoVariante;
 use Tonyprr\Exception\ValidacionException;
 
-class Api_ProductoController extends Zend_Controller_Action
+class Api_ProductoVarianteController extends Zend_Controller_Action
 {
 
     public function init()
@@ -33,23 +33,18 @@ class Api_ProductoController extends Zend_Controller_Action
             $data = $this->getRequest()->getParams();
             $pageStart = isset($data['start'])?$data['start']:NULL;
             $pageLimit = isset($data['limit'])?$data['limit']:NULL;
-            $idcontCate = isset($data['idcontcate'])?$data['idcontcate']:NULL;
-            $textoBusqueda = isset($data['query'])?$data['query']:NULL;
-            $srvProducto = new Producto();
+            $idproducto = isset($data['idproducto'])?$data['idproducto']:NULL;
+            $srvProductoVariante = new ProductoVariante();
             
-            if ($data['operacion'] == "lista") {
-                list($aProductos, $total, $oProductoCategoria) = $srvProducto->aList($idcontCate, 1 ,1, $pageStart, $pageLimit, $textoBusqueda);
+            if (!isset($data['operacion']) || $data['operacion'] == "lista") {
+                list($aProductoVariantes, $total, $oProducto) = $srvProductoVariante->aList($idproducto, 1, $pageStart, $pageLimit);
                 $objRecords=\Tonyprr_lib_Records::getInstance();
-                $objRecords->normalizeRecords($aProductos);
-                $result['data'] = $aProductos;
+                $objRecords->normalizeRecords($aProductoVariantes);
+                $result['data'] = $aProductoVariantes;
             } else if ($data['operacion'] == "getById") {
-                $aProducto = $srvProducto->getById($data['idprod'], 1, true, true);
+                $aProducto = $srvProductoVariante->getById($data['idprod'], 1, true, true);
                 $result['data'] = $aProducto;
                 $total = 1;
-            } else if ($data['operacion'] == "get_galeria") {
-                $srvProductoGaleria = new ProductoGaleria();
-                list($aProductoGaleria, $total, $oProducto) = $srvProductoGaleria->aList($data['idprod'], 1);
-                $result['data'] = $aProductoGaleria;
             }
             $result['success'] = 1;
             $result['total'] = $total;
@@ -61,15 +56,27 @@ class Api_ProductoController extends Zend_Controller_Action
 
     public function postAction()
     {
-        // action body
-//        echo Zend_Json::encode($this->_todo);
-//        $this->getResponse()->setBody('Hello World');
-//        $this->getResponse()->setHttpResponseCode(200);
     }
 
     public function putAction()
     {
-        
+        try {
+            $body = $this->getRequest()->getRawBody();
+            $data = Zend_Json::decode($body);
+            $dataParams = $this->getRequest()->getParams();
+            $idproducto = isset($dataParams['idproducto'])?$dataParams['idproducto']:NULL;
+            $data['idproducto'] = $idproducto;
+            $srvProductoVariante = new ProductoVariante();
+            $oProductoVariante = $srvProductoVariante->save($data);
+            
+            $result['idProductoVariante'] = $oProductoVariante->getIdProductoVariante();
+            $result['success'] = 1;
+            $result['msg'] = "Se proceso el registro correctamente.";
+            $this->_helper->json->sendJson($result);
+        } catch(Exception $e) {
+            $this->getResponse()->setHttpResponseCode(500);
+            echo Zend_Json_Encoder::encode( array("success" => 0,"data" => null,"msg" => $e->getMessage()) );
+        }
     }
 
     public function deleteAction()

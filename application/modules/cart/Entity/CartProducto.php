@@ -709,4 +709,44 @@ class CartProducto
     {
         return $this->precio2;
     }
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="cart\Entity\CartProductoVariante", mappedBy="producto", cascade={"persist"})
+     */
+    private $variantes;
+
+
+    /**
+     * Add variantes
+     *
+     * @param cart\Entity\CartProductoVariante $variantes
+     * @return CartProducto
+     */
+    public function addVariante(\cart\Entity\CartProductoVariante $variantes)
+    {
+        $this->variantes[] = $variantes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove variantes
+     *
+     * @param cart\Entity\CartProductoVariante $variantes
+     */
+    public function removeVariante(\cart\Entity\CartProductoVariante $variantes)
+    {
+        $this->variantes->removeElement($variantes);
+    }
+
+    /**
+     * Get variantes
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getVariantes()
+    {
+        return $this->variantes;
+    }
 }

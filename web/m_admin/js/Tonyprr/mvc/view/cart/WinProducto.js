@@ -1,5 +1,18 @@
 var rowEditingProducto = Ext.create('Ext.grid.plugin.RowEditing');
 
+var rowEditingProductoVariante = Ext.create('Ext.grid.plugin.RowEditing', {
+        listeners: {
+            cancelEdit: function(rowEditing, context) {
+                // Canceling editing of a locally added, unsaved record: remove it
+                console.log(context.record);
+                if (context.record.phantom) {
+                    Ext.data.StoreManager.lookup('ProductoVarianteStore').remove(context.record);
+                    //store.remove(context.record);
+                }
+            }
+        }
+    });
+    
 Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
 	extend 			: "Ext.Panel",
         alias                   : 'widget.winProducto',
@@ -379,6 +392,17 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                 xtype :'panel',
                 title: 'Stock del Producto',
                 itemId:'panelStockWidget',
+                layout : 'anchor',
+                frame: true,
+                autoWidth: true,
+                autoHeight: true,
+                padding: '10px',
+                margin: '5px'
+            }
+            ,{
+                xtype :'panel',
+                title: 'Variantes del Producto',
+                itemId:'panelVariantesWidget',
                 layout : 'anchor',
                 frame: true,
                 autoWidth: true,
@@ -783,7 +807,64 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                 meWinProducto.down('panel[itemId="panelStockWidget"]').add(gridUIMovimientoStock);
                 delete gridUIMovimientoStock;
 
-	}
+                Ext.create('Tonyprr.mvc.store.cart.ProductoVariante', {storeId:'ProductoVarianteStore'});
+                meWinProducto.down('panel[itemId="panelVariantesWidget"]').add({
+                     xtype : 'grid',
+                     plugins: [rowEditingProductoVariante],
+                     autoWidth: true,
+                     height: 150,
+                     frame: true,
+                     title: 'Variantes',
+                     store: Ext.data.StoreManager.lookup('ProductoVarianteStore'),
+                     iconCls: 'icon-user',
+                     columns: [{
+                         text: 'ID',
+                         width: 40,
+                         sortable: true,
+                         dataIndex: 'idProductoVariante'
+                     }, {
+                         text: 'Descripción',
+                         flex: 1,
+                         sortable: true,
+                         dataIndex: 'descripcion',
+                         field: {
+                             xtype: 'textfield'
+                         }
+                     }],
+                     dockedItems: [{
+                         xtype: 'toolbar',
+                         items: [{
+                             text: 'Agregar',
+                             iconCls: 'add',
+                             handler: function() {
+//                                valuesForm=meWinProducto.getComponent(0).getForm().getValues();
+//                                 var oProductoVariante = new Tonyprr.mvc.model.cart.ProductoVariante();
+//                                 oProductoVariante.set('idproducto', valuesForm.idproducto);
+                                 Ext.data.StoreManager.lookup('ProductoVarianteStore').insert(0, new Tonyprr.mvc.model.cart.ProductoVariante());
+                                 rowEditingProductoVariante.startEdit(0, 0);
+                             }
+                         }
+//                         , '-', 
+//                             itemId: 'delete',
+//                             text: 'Borrar',
+//                             iconCls: 'delete',
+//                             disabled: true,
+//                             handler: function(){
+//                                 var selection = meWinProducto.down('panel[itemId="panelVariantesWidget"]').getComponent(0).getView().getSelectionModel().getSelection()[0];
+//                                 if (selection) {
+//                                     Ext.data.StoreManager.lookup('ProductoVarianteStore').remove(selection);
+//                                 }
+//                             }
+//                         }
+                     ]
+                     }]
+                        
+                });
+                
+                meWinProducto.down('panel[itemId="panelVariantesWidget"]').getComponent(0).getSelectionModel().on('selectionchange', function(selModel, selections){
+                    meWinProducto.down('panel[itemId="panelVariantesWidget"]').getComponent(0).down('#delete').setDisabled(selections.length === 0);
+                });
+        }
 	
 	
 });

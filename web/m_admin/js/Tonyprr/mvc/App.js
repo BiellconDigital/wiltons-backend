@@ -18,6 +18,7 @@ Ext.define("Tonyprr.mvc.App",{
 	requires	: [
 		"Tonyprr.core.Message"
 	],
+            name		: "Tonyprr.App",
         controllers: [
             'Tonyprr.mvc.controller.Init'
         ],

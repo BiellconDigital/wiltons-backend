@@ -93,10 +93,10 @@ Ext.define('Tonyprr.mvc.view.web.WinContenido1', {
                                         name:'nameCate',
                                         disabled : true,
                                         allowBlank:false 
-                                    },
-                                    {
+                                    }
+                                    ,{
                                         xtype: 'fieldcontainer',
-                                        fieldLabel: 'Imagen',//(200x130)
+                                        fieldLabel: 'Imagen PC',//(200x130)
                                         layout: 'hbox',
                                         items: [
                                             {
@@ -108,6 +108,46 @@ Ext.define('Tonyprr.mvc.view.web.WinContenido1', {
                                             {
                                                 xtype:'filefield',
                                                 name:'file_image',
+                                                msgTarget: 'side',
+//                                                anchor : '30%',
+                                                buttonConfig :{iconCls:'image_edit'},buttonText:''
+                                            }
+                                        ]
+                                    }
+                                    ,{
+                                        xtype: 'fieldcontainer',
+                                        fieldLabel: 'Imagen Tablet',//(200x130)
+                                        layout: 'hbox',
+                                        items: [
+                                            {
+                                                xtype :'textfield',
+                                                name :'imagen2',
+                                                width: 300, disabled : true
+                                            },
+                                            {xtype: 'splitter'},
+                                            {
+                                                xtype:'filefield',
+                                                name:'file_image2',
+                                                msgTarget: 'side',
+//                                                anchor : '30%',
+                                                buttonConfig :{iconCls:'image_edit'},buttonText:''
+                                            }
+                                        ]
+                                    }
+                                    ,{
+                                        xtype: 'fieldcontainer',
+                                        fieldLabel: 'Imagen Movil',//(200x130)
+                                        layout: 'hbox',
+                                        items: [
+                                            {
+                                                xtype :'textfield',
+                                                name :'adjunto',
+                                                width: 300, disabled : true
+                                            },
+                                            {xtype: 'splitter'},
+                                            {
+                                                xtype:'filefield',
+                                                name:'file_adjunto',
                                                 msgTarget: 'side',
 //                                                anchor : '30%',
                                                 buttonConfig :{iconCls:'image_edit'},buttonText:''

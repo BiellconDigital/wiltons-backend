@@ -123,4 +123,8 @@ cart\Entity\CartProducto:
             targetEntity: cart\Entity\CartProductoComentario
             mappedBy: producto
             cascade: [ "persist" ]
+        variantes:
+            targetEntity: cart\Entity\CartProductoVariante
+            mappedBy: producto
+            cascade: [ "persist" ]
     lifecycleCallbacks: {  }

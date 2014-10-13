@@ -1,0 +1,39 @@
+cart\Entity\CartProductoVariante:
+    type: entity
+    repositoryClass: cart\Repositories\CartProductoVarianteRepository
+    table: cart_producto_variante
+    fields:
+        idProductoVariante:
+            id: true
+            type: bigint
+            nullable: false
+            column: __id_producto_variante
+            generator:
+                strategy: IDENTITY
+        descripcion:
+            type: string
+            length: 100
+            fixed: false
+            nullable: true
+            column: __descripcion
+        estado:
+            type: boolean
+            nullable: true
+            column: __estado
+        fechaRegistro:
+            type: datetime
+            nullable: true
+            column: __fecha_registro
+    manyToOne:
+        producto:
+            targetEntity: cart\Entity\CartProducto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: variantes
+            joinColumns:
+                __idProducto:
+                    onUpdate: CASCADE
+                    onDelete: CASCADE
+                    referencedColumnName: __idProducto
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

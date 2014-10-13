@@ -54,7 +54,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->bootstrap('frontController');	 
         $front = Zend_Controller_Front::getInstance();
         $restRoute = new Zend_Rest_Route($front, array(), 
-                array('api' => array('productos', 'productos-categoria', 'login',
+                array('api' => array('productos', 'productos-categoria', 'producto-variante', 'login',
                                      'cliente', 'logout', 'cart',
                                       'distrito','orden-tipo', 'registro', 'tipo-documento', 'visa'))
         );

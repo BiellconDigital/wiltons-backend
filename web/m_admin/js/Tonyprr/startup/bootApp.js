@@ -2,7 +2,7 @@ Ext.Loader.setConfig({
     enabled : true,
     paths   : {
         Tonyprr : Tonyprr.Constants.JS_PATH+"/Tonyprr",
-        ux     : Tonyprr.Constants.JS_PATH+"/vendors/ux",
+//        ux     : Tonyprr.Constants.JS_PATH+"/vendors/ux",
         'Ext.ux.form.field': Tonyprr.Constants.JS_PATH+"/vendors/ux/form/field"
     } 
 });
@@ -10,7 +10,7 @@ Ext.Loader.setConfig({
 //Ext.require("Tonyprr.abstract.MessageBox");
 Ext.require("Tonyprr.mvc.App");
 Ext.require("Tonyprr.core.Lib");
-Ext.require("ux.RowExpander");
+//Ext.require("ux.RowExpander");
 Ext.require([ 'Ext.ux.form.field.TinyMCE' ]);
 
 function closeSessionInac() {

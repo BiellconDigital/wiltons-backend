@@ -40,8 +40,8 @@ class CmsContentRepository extends EntityRepository
                    ->leftJoin('c.contcate','ca')->leftJoin('c.languages','cl')->leftJoin('c.tipo','t')
                    ->leftJoin('ca.languages','cal')
                     ->where("cl.language = :lang and cal.language= :lang")->setParameter('lang', $oLanguage)
-                    ->addOrderBy('ca.ordenCate','ASC')
-                   ->addOrderBy('c.fechainipub','DESC')->addOrderBy('c.orden','ASC');
+                    ->addOrderBy('ca.ordenCate','ASC')->addOrderBy('c.orden','ASC')
+                   ->addOrderBy('c.fechainipub','DESC');
         if ($idcontCate != NULL) $qbContent->andWhere('c.contcate = :categoria')->setParameter('categoria', $oContentCategoria);
         if ($estado != "TODOS") 
             $qbContent->andWhere('c.estado = :estado')->setParameter('estado', $estado);

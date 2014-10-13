@@ -10,6 +10,7 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
                     ,'Tonyprr.mvc.store.cart.ProductoGaleriaLanguage'
 //                    ,'Tonyprr.mvc.store.cart.ProductoTipo'
                     ,'Tonyprr.mvc.store.cart.MovimientoStockProducto'
+                    ,'Tonyprr.mvc.store.cart.ProductoVariante'
                   ],
     models	: [
                     'Tonyprr.abstract.Model','Tonyprr.mvc.model.cart.ProductoCategoria',
@@ -20,6 +21,7 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
                     ,'Tonyprr.mvc.model.cart.ProductoGaleriaLanguage'
 //                    ,'Tonyprr.mvc.model.cart.ProductoTipo'
                     ,'Tonyprr.mvc.model.cart.MovimientoStock'
+                    ,'Tonyprr.mvc.model.cart.ProductoVariante'
                   ],
 
     views	: [
@@ -94,10 +96,31 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
     }
 
     ,onSelectCategoria: function(tree, model, index) {
+        try {
         idReg = model.get('idcontcate');
-        storeProds = this.getListviewprod().getComponent(1).getStore();
-        Ext.apply(storeProds.getProxy().extraParams, {idcontcate : idReg});
-        storeProds.load();
+//        var storeProds = this.getListviewprod().getComponent(1).getStore();
+        Ext.apply(Ext.data.StoreManager.lookup('ProductoStore').getProxy().extraParams, {idcontcate : idReg});
+        Ext.data.StoreManager.lookup('ProductoStore').load();
+        } catch(Exception) {
+            console.log(Exception);
+            try {
+                Ext.data.StoreManager.lookup('ProductoStore').load();
+            } catch(Exception) {
+                try {
+                    Ext.data.StoreManager.lookup('ProductoStore').load();
+                } catch(Exception) {
+                    try {
+                        Ext.data.StoreManager.lookup('ProductoStore').load();
+                    } catch(Exception) {
+                        try {
+                            Ext.data.StoreManager.lookup('ProductoStore').load();
+                        } catch(Exception) {
+                            Ext.data.StoreManager.lookup('ProductoStore').load();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     ,onClickAddProd: function(button,e) {

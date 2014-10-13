@@ -3,6 +3,7 @@ Ext.define("Tonyprr.abstract.Store",{
     model  : "Tonyprr.abstract.Model",
     pageSize: 15,
     method : 'POST',
+    autoSync : true,
     constructor	: function(options) {
         var me = this;
         Ext.apply(me,options || {});
