@@ -27,16 +27,16 @@ Ext.define("Tonyprr.mvc.store.cart.ProductoVariante",{
                 var record = operation.getRecords()[0],
                     name = Ext.String.capitalize(operation.action),
                     verb;
-                console.log(operation.getRecords());
+                console.log(operation);
                 if (name == 'Destroy') {
                     record = operation.records[0];
                     verb = 'Destroyed';
                 } else {
                     verb = name + 'd';
                 }
-                console.log("white go...");
                 console.log(record);
-                store.load();
+                if (name != 'Create')
+                    store.load();
                 //Ext.MessageBox.alert(name,Ext.String.format("{0} Variante: {1}", verb, record.getIdProductoVariante()));
                 
             }

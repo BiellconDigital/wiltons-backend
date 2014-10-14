@@ -5,10 +5,10 @@ var rowEditingProductoVariante = Ext.create('Ext.grid.plugin.RowEditing', {
             cancelEdit: function(rowEditing, context) {
                 // Canceling editing of a locally added, unsaved record: remove it
                 console.log(context.record);
-                if (context.record.phantom) {
-                    Ext.data.StoreManager.lookup('ProductoVarianteStore').remove(context.record);
-                    //store.remove(context.record);
-                }
+//                if (context.record.phantom) {
+//                    Ext.data.StoreManager.lookup('ProductoVarianteStore').remove(context.record);
+//                    //store.remove(context.record);
+//                }
             }
         }
     });
@@ -830,6 +830,14 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                          field: {
                              xtype: 'textfield'
                          }
+                     }, {
+                         text: 'Activo?',
+                         flex: 1,
+                         sortable: true,
+                         dataIndex: 'estado',
+                         field: {
+                             xtype: 'checkbox'
+                         }
                      }],
                      dockedItems: [{
                          xtype: 'toolbar',
@@ -861,9 +869,9 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                         
                 });
                 
-                meWinProducto.down('panel[itemId="panelVariantesWidget"]').getComponent(0).getSelectionModel().on('selectionchange', function(selModel, selections){
-                    meWinProducto.down('panel[itemId="panelVariantesWidget"]').getComponent(0).down('#delete').setDisabled(selections.length === 0);
-                });
+//                meWinProducto.down('panel[itemId="panelVariantesWidget"]').getComponent(0).getSelectionModel().on('selectionchange', function(selModel, selections){
+//                    meWinProducto.down('panel[itemId="panelVariantesWidget"]').getComponent(0).down('#delete').setDisabled(selections.length === 0);
+//                });
         }
 	
 	

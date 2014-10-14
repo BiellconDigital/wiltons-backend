@@ -44,7 +44,7 @@ class ProductoVariante {
 
             $oProductoVariante->setDescripcion($formData['descripcion']);
             $oProductoVariante->setProducto($Producto);
-            $oProductoVariante->setEstado(true);
+            $oProductoVariante->setEstado($formData['estado']);
             $this->_em->persist($oProductoVariante);
             $this->_em->flush();
 
