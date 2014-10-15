@@ -22,7 +22,7 @@ class CartProductoVarianteRepository extends EntityRepository
             throw new \Exception('No existe el registro.');
 
         $dqlList = 'SELECT pv.idProductoVariante, pv.estado,
-                           pv.descripcion
+                           pv.codigo, pv.descripcion
                     from \cart\Entity\CartProductoVariante pv 
                     INNER JOIN pv.producto p
                     WHERE pv.producto = ?1';

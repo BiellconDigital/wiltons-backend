@@ -270,102 +270,18 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                         }
                                     }
 
-/*                                    {
-                                        xtype : 'grid',
-                                        itemId:'gridProdLanguage',
-                                        frame:true,
-                                        columnLines : true,
-                                        autoScroll:true,
-                                        store: 'Tonyprr.mvc.store.cart.ProductoLanguage',
-                                        border:false,
-                                        columns : [
-                                            {
-                                                xtype:'actioncolumn', 
-                                                width:40,
-                                                items: [
-                                                    {
-                                                        icon: Tonyprr.Constants.IMAGE_EDIT,
-                                                        tooltip: 'Editar el Registro',
-                                                        handler: function(grid, rowIndex, colIndex) {
-                                                            model = grid.getStore().getAt(rowIndex);
-                                                            grid.up('panel[itemId="panelProdLanguage"]').down(('form[itemId="formProdLanguage"]')).loadRecord(model);
-                                                        }
-                                                    }
-                                                ]
-                                            },
-                                            {dataIndex: 'idProductoLanguage',header : 'ID',width:26, hidden : true},
-                                            {dataIndex: 'idproducto',header : 'ID Categoria',width: 80, hidden : true},
-                                            {dataIndex: 'idLanguage',header : 'ID Idioma',hidden : true},
-                                            {dataIndex: 'idioma',header : 'Idioma', width : 180},
-                                            {dataIndex: 'nombre',header : 'Nombre Producto',width: 270}
-                                        ]
-                                    }
-                                    ,{
-                                        xtype :'form',
-                                        title: 'Idioma',
-                                        itemId:'formProdLanguage',
-                                        frame : true,
-                                        fileUpload:true,
-                                        url: Tonyprr.BASE_URL + '/admin/cart-producto/save-language',
-                                        border : true, 
-                                        defaults: {anchor : '98%', bodyStyle:'padding:7px'},
-                                        defaultType : 'textfield',
-                                        padding : '6 6 6 6', 
-                                        items:[
-                                            {
-                                                xtype: 'hidden',
-                                                name:'idProductoLanguage'
-                                            },
-                                            {
-                                                xtype : 'hidden',
-                                                name:'idLanguage',
-                                                allowBlank:false
-                                            },
-                                            {
-                                                fieldLabel:'Nombre',
-                                                name:'nombre'
-            //                                    ,allowBlank:false
-                                            }
-//                                            ,{
-//                                                xtype : 'htmleditor',
-//                                                fieldLabel : 'Intro',
-//                                                height : 160,
-//                                                name:'intro'
-//                                            }
-                                            ,{
-                                                xtype: 'tinymcefield',
-                                                name: 'ficha',
-                                                fieldLabel: 'Detalle',
-                                                labelAlign: 'top',
-                                                height: 290,
-                                                anchor: '100%',
-                                                tinymceConfig: {
-                                                    theme_advanced_buttons1: 'fullscreen,|,undo,redo,|,bold,italic,underline,strikethrough,|,forecolor,backcolor,removeformat,|,justifyleft,justifycenter,justifyright,justifyfull,|,fontselect,|,code',
-                                                    theme_advanced_buttons2: 'fontsizeselect,|,cut,copy,paste,pastetext,pasteword,|,bullist,numlist,|,outdent,indent,|,undo,redo,|,link,unlink',
-                                                    theme_advanced_buttons3: '',
-                                                    theme_advanced_buttons4: '',
-                                                    skin_variant : 'gray'
-                                                }
-                                            }
-                                            ,{
-                                                xtype:'filefield',
-                                                name:'file_image_temp',
-                                                hidden :  true,
-                                                buttonConfig :{iconCls:'image_edit'},buttonText:''
-                                            }
-                                        ],
-                                        tbar: [
-                                            '-',
-                                            {
-                                                text: 'guardar idioma',
-                                                formBind: true,
-                                                disabled: true,
-                                                iconCls : 'save'
-                                            }
-                                            ,'-'
-                                        ]
-                                    }
-*/                                ]
+                                ]
+                            }
+                            ,{
+                                xtype :'panel',
+                                title: 'Variantes del Producto',
+                                itemId:'panelVariantesWidget',
+                                layout : 'anchor',
+                                frame: true,
+                                autoWidth: true,
+                                autoHeight: true,
+                                padding: '10px',
+                                margin: '5px'
                             }
                         ]
                     }
@@ -392,17 +308,6 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                 xtype :'panel',
                 title: 'Stock del Producto',
                 itemId:'panelStockWidget',
-                layout : 'anchor',
-                frame: true,
-                autoWidth: true,
-                autoHeight: true,
-                padding: '10px',
-                margin: '5px'
-            }
-            ,{
-                xtype :'panel',
-                title: 'Variantes del Producto',
-                itemId:'panelVariantesWidget',
                 layout : 'anchor',
                 frame: true,
                 autoWidth: true,
@@ -822,7 +727,15 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                          width: 40,
                          sortable: true,
                          dataIndex: 'idProductoVariante'
-                     }, {
+                     },{
+                         text: 'Código',
+                         flex: 1,
+                         sortable: true,
+                         dataIndex: 'codigo',
+                         field: {
+                             xtype: 'textfield'
+                         }
+                     },{
                          text: 'Descripción',
                          flex: 1,
                          sortable: true,

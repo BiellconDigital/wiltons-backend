@@ -42,6 +42,7 @@ class ProductoVariante {
             }
             $Producto = $this->_em->find("cart\Entity\CartProducto", $formData['idproducto'] );
 
+            $oProductoVariante->setCodigo($formData['codigo']);
             $oProductoVariante->setDescripcion($formData['descripcion']);
             $oProductoVariante->setProducto($Producto);
             $oProductoVariante->setEstado($formData['estado']);

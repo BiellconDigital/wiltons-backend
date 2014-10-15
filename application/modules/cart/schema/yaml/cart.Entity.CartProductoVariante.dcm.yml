@@ -10,6 +10,12 @@ cart\Entity\CartProductoVariante:
             column: __id_producto_variante
             generator:
                 strategy: IDENTITY
+        codigo:
+            type: string
+            length: 15
+            fixed: false
+            nullable: true
+            column: __codigo
         descripcion:
             type: string
             length: 100

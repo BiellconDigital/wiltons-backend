@@ -152,15 +152,18 @@ class Producto {
             }
             
             /* Subir archivo de adjunto */
-            $tipo = $_FILES['file_adjunto']['type'];
-            if ($_FILES['file_adjunto']['name'] != "") {
-                $aInfoAdj = pathinfo($_FILES['file_adjunto']['name']);
-                $nomArchivoAdj = trim("producto_adj_" . $oProducto->getIdproducto()) .'.' . $aInfoAdj['extension'];
-                @unlink($this->_pathProducto . trim($oProducto->getAdjunto()));
-                @move_uploaded_file($_FILES['file_adjunto']['tmp_name'], $this->_pathProducto . $nomArchivoAdj);
-                $oProducto->setAdjunto($nomArchivoAdj);
-                $subioArchivo = true;
+            if (isset($_FILES['file_adjunto'])) {
+                $tipo = $_FILES['file_adjunto']['type'];
+                if ($_FILES['file_adjunto']['name'] != "") {
+                    $aInfoAdj = pathinfo($_FILES['file_adjunto']['name']);
+                    $nomArchivoAdj = trim("producto_adj_" . $oProducto->getIdproducto()) .'.' . $aInfoAdj['extension'];
+                    @unlink($this->_pathProducto . trim($oProducto->getAdjunto()));
+                    @move_uploaded_file($_FILES['file_adjunto']['tmp_name'], $this->_pathProducto . $nomArchivoAdj);
+                    $oProducto->setAdjunto($nomArchivoAdj);
+                    $subioArchivo = true;
+                }
             }
+            
             if ($subioArchivo == true) {
                 $this->_em->persist($oProducto);
                 $this->_em->flush();

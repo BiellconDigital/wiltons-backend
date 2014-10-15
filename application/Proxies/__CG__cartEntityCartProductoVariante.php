@@ -99,10 +99,22 @@ class CartProductoVariante extends \cart\Entity\CartProductoVariante implements 
         return parent::getProducto();
     }
 
+    public function setCodigo($codigo)
+    {
+        $this->__load();
+        return parent::setCodigo($codigo);
+    }
+
+    public function getCodigo()
+    {
+        $this->__load();
+        return parent::getCodigo();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'idProductoVariante', 'descripcion', 'estado', 'fechaRegistro', 'producto');
+        return array('__isInitialized__', 'idProductoVariante', 'codigo', 'descripcion', 'estado', 'fechaRegistro', 'producto');
     }
 
     public function __clone()

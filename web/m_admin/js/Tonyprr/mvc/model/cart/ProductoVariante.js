@@ -5,6 +5,7 @@ Ext.define("Tonyprr.mvc.model.cart.ProductoVariante",{
         {name:"idProductoVariante",type:"integer",
         useNull: true},
         {name:"idproducto",type:"integer"},
+        "codigo",
         "descripcion",
         {name: "estado", type: 'boolean'},
         {name:"fechaRegistro",type:"date",dateFormat:'Y-m-d H:i:s'}
