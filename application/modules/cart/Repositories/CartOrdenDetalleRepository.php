@@ -25,8 +25,9 @@ class CartOrdenDetalleRepository extends EntityRepository
         $qbOrdenDetalle = $this->_em->createQueryBuilder();
         $qbOrdenDetalle->select(
                     '
-                    od.idOrdenDetalle,od.productoNombre,od.cantidad,od.precioUnitario,od.precioTotal,p.imagen, p.codigoProducto
-                    ')->from($this->_entityName, 'od')
+                    od.idOrdenDetalle,od.productoNombre,od.cantidad,od.precioUnitario,od.precioTotal,p.imagen, p.codigoProducto,od.codigoVariante
+                    ')
+                ->from($this->_entityName, 'od')
                    ->innerJoin('od.producto','p')
                    ->orderBy('od.fechaRegistro','DESC')
                    ->where('od.orden = :orden')->setParameter('orden', $oOrden);
@@ -76,6 +77,8 @@ class CartOrdenDetalleRepository extends EntityRepository
             $oOrdenDetalle->setProducto($oProducto);
             $oOrdenDetalle->setPrecioTotal($formData['precioTotal']);
             $oOrdenDetalle->setPrecioUnitario($formData['precioUnitario']);
+            $oOrdenDetalle->setCodigoVariante($formData['codigoVariante']));
+            
             $oOrdenDetalle->setProductoNombre(isset($formData['tituloConte'])?$formData['tituloConte']:$oProducto->getTituloConte());
 //            $oOrdenDetalle->setFechaModificacion( new \DateTime() );
             $this->_em->persist($oOrdenDetalle);

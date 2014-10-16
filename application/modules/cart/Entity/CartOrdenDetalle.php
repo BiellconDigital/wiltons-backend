@@ -337,4 +337,34 @@ class CartOrdenDetalle
     {
         return $this->producto;
     }
+    /**
+     * @var string $codigoVariante
+     *
+     * @ORM\Column(name="__codigo_variante", type="string", length=15, nullable=false)
+     */
+    private $codigoVariante;
+
+
+    /**
+     * Set codigoVariante
+     *
+     * @param string $codigoVariante
+     * @return CartOrdenDetalle
+     */
+    public function setCodigoVariante($codigoVariante)
+    {
+        $this->codigoVariante = $codigoVariante;
+    
+        return $this;
+    }
+
+    /**
+     * Get codigoVariante
+     *
+     * @return string 
+     */
+    public function getCodigoVariante()
+    {
+        return $this->codigoVariante;
+    }
 }

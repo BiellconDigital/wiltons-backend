@@ -36,6 +36,12 @@ cart\Entity\CartOrdenDetalle:
             type: float
             nullable: true
             column: __impuesto_ratio
+        codigoVariante:
+            type: string
+            length: 15
+            fixed: false
+            nullable: false
+            column: __codigo_variante
         fechaRegistro:
             type: datetime
             nullable: true

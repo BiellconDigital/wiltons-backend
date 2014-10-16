@@ -171,10 +171,22 @@ class CartOrdenDetalle extends \cart\Entity\CartOrdenDetalle implements \Doctrin
         return parent::getProducto();
     }
 
+    public function setCodigoVariante($codigoVariante)
+    {
+        $this->__load();
+        return parent::setCodigoVariante($codigoVariante);
+    }
+
+    public function getCodigoVariante()
+    {
+        $this->__load();
+        return parent::getCodigoVariante();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'idOrdenDetalle', 'productoNombre', 'cantidad', 'precioUnitario', 'precioTotal', 'impuestoTotal', 'impuestoRatio', 'fechaRegistro', 'fechaModificacion', 'orden', 'producto');
+        return array('__isInitialized__', 'idOrdenDetalle', 'productoNombre', 'cantidad', 'precioUnitario', 'precioTotal', 'impuestoTotal', 'impuestoRatio', 'codigoVariante', 'fechaRegistro', 'fechaModificacion', 'orden', 'producto');
     }
 
     public function __clone()

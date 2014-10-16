@@ -118,6 +118,7 @@ class Api_CartController extends Zend_Controller_Action
                         $detalleOrden['idproducto'] = $item['sku'];
                         $detalleOrden['tituloConte'] = $item['name'];
                         $detalleOrden['precioUnitario'] = $item['price'];
+                        $detalleOrden['codigoVariante'] = $item['variante'];
                         $detalleOrden['precioTotal']  = $item['quantity'] * $item['price'];
                         $oOrdenDetalle = $srvOrdenDetalle->save($detalleOrden, $oOrden);
                     }

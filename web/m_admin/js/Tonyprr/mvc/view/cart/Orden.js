@@ -315,6 +315,7 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
                     columns : [
                         {dataIndex: 'idOrdenDetalle',header : 'ID',width:49, hidden : true},
                         {dataIndex: 'idproducto',header : 'ID Producto',width: 120,hidden : true},
+                        {dataIndex: 'codigoVariante',header : 'Código Var.',width: 80,sortable : false, css:'font-size:10px;color;blue;'},
                         {dataIndex: 'productoNombre',header : 'Producto',width: 300,sortable : false, css:'font-size:10px;color;blue;'},
                         {dataIndex: 'cantidad',header : 'Cantidad',width: 70,sortable : false,align:'right'},
                         {dataIndex: 'precioUnitario',header : 'Precio Unitario',width: 100,sortable : false,align:'right'},

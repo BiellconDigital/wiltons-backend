@@ -4,4 +4,5 @@ CREATE TABLE cart_producto_variante (__id_producto_variante BIGINT AUTO_INCREMEN
 ALTER TABLE cart_producto_variante ADD CONSTRAINT FK_7FB829BBC9EE6EC8 FOREIGN KEY (__idProducto) REFERENCES cart_producto (__idProducto) ON DELETE CASCADE;
 
 --cambios 15-10-2014
-ALTER TABLE  `cart_producto_variante` ADD  `__codigo` VARCHAR( 15 ) NULL AFTER  `__id_producto_variante`
+ALTER TABLE  `cart_producto_variante` ADD  `__codigo` VARCHAR( 15 ) NULL AFTER  `__id_producto_variante`;
+ALTER TABLE  `cart_orden__detalle` ADD  `__codigo_variante` VARCHAR( 15 ) NULL AFTER  `__impuesto_ratio`;

@@ -11,6 +11,7 @@ Ext.define("Tonyprr.mvc.model.cart.OrdenDetalle",{
         {name:"fechaRegistro", type:"date", dateFormat:'Y-m-d H:i:s'},
         {name:"fechaModificacion", type:"date", dateFormat:'Y-m-d H:i:s'},
         {name:"idproducto", type:"integer"},
+        "codigoVariante",
         {name:"idOrden", type:"integer"}
     ]
 });

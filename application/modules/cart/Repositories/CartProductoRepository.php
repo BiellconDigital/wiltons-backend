@@ -37,11 +37,15 @@ class CartProductoRepository extends EntityRepository
                     ma.idmarca,
                     t.idTipo
                     '
-                    )->from($this->_entityName,'p')
+                    )
+                ->addSelect("COUNT(v) number_variantes")
+                ->from($this->_entityName,'p')
                    ->innerJoin('p.contcate','ca')->innerJoin('p.languages','pl')->leftJoin('p.marca','ma')->leftJoin('p.tipo','t')
                     ->innerJoin('ca.languages','cal')
+                   ->leftJoin('p.variantes', 'v')                   
                     ->andWhere("pl.language = :lang")->setParameter('lang', $oLanguage)
-                    ->andWhere("cal.language = :lang")->setParameter('lang', $oLanguage);
+                    ->andWhere("cal.language = :lang")->setParameter('lang', $oLanguage)
+                    ->groupBy('p.idproducto');
         if ($idcontCate != NULL) $qbProducto->andWhere('p.contcate = :categoria')->setParameter('categoria', $oProductoCategoria);
         if ($estado != "TODOS")
             $qbProducto->andWhere('p.estado = :estado')->setParameter('estado', 1);
