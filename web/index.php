@@ -15,6 +15,7 @@ define('PTH_PUBLIC',BP . DS . 'web' );
 define('DIR_WEB','http://localhost/wiltons-frontend' . '/' . 'app/' );//$_SERVER['SERVER_NAME']
 define('DIR_CART','http://localhost/wiltons-frontend' . '/' . 'app/' );//$_SERVER['SERVER_NAME']
 define('WEB_DOMAIN','http://localhost' );//$_SERVER['SERVER_NAME']
+define('EMAIL_VENTAS','tonyprr@gmail.com' );//$_SERVER['SERVER_NAME']
 
 // Ensure library/ is on include_pathm
 set_include_path(implode(PATH_SEPARATOR, array(

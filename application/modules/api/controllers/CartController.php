@@ -62,9 +62,10 @@ class Api_CartController extends Zend_Controller_Action
             $cartData = Zend_Json::decode($body);
 //            var_dump($cartData);   procesar_compra
             $dataStorage = Zend_Auth::getInstance()->getStorage()->read();
-            $em = \Zend_Registry::get('em');
-            $em->getConnection()->beginTransaction();
+//            $em = \Zend_Registry::get('em');
+
             try {
+//                $em->getConnection()->beginTransaction();
                 //throw new \Exception('Error de prueba.');
                 $srvOrden = new OrdenService();
                 $srvOrdenDetalle = new OrdenDetalleService();
@@ -119,11 +120,12 @@ class Api_CartController extends Zend_Controller_Action
                         $detalleOrden['tituloConte'] = $item['name'];
                         $detalleOrden['precioUnitario'] = $item['price'];
                         $detalleOrden['codigoVariante'] = $item['variante'];
+//                        echo "codigo: " . $item['variante'];
                         $detalleOrden['precioTotal']  = $item['quantity'] * $item['price'];
                         $oOrdenDetalle = $srvOrdenDetalle->save($detalleOrden, $oOrden);
                     }
 //                }
-                $em->getConnection()->commit();
+//                $em->getConnection()->commit();
                 
                 if (intval($orden['tipoPago']) == 1) {
                     $srvOrden->notificarRegistroOrden($oOrden);
@@ -133,8 +135,8 @@ class Api_CartController extends Zend_Controller_Action
                 $result['idOrden'] = $oOrden -> getIdOrden();
                 $this->_helper->json->sendJson($result);
             } catch(Exception $e) {
-                $em->getConnection()->rollback();
-                $em->close();
+//                $em->getConnection()->rollback();
+//                $em->close();
                 $this->getResponse()->setHttpResponseCode(500);
                 echo Zend_Json_Encoder::encode( array("success" => 0,"data" => null,"msg" => $e->getMessage()) );
             }

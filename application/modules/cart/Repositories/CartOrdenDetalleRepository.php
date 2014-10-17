@@ -77,7 +77,7 @@ class CartOrdenDetalleRepository extends EntityRepository
             $oOrdenDetalle->setProducto($oProducto);
             $oOrdenDetalle->setPrecioTotal($formData['precioTotal']);
             $oOrdenDetalle->setPrecioUnitario($formData['precioUnitario']);
-            $oOrdenDetalle->setCodigoVariante($formData['codigoVariante']));
+            $oOrdenDetalle->setCodigoVariante($formData['codigoVariante']);
             
             $oOrdenDetalle->setProductoNombre(isset($formData['tituloConte'])?$formData['tituloConte']:$oProducto->getTituloConte());
 //            $oOrdenDetalle->setFechaModificacion( new \DateTime() );
@@ -86,7 +86,7 @@ class CartOrdenDetalleRepository extends EntityRepository
             return $oOrdenDetalle;
         } catch(\Exception $e) {
             if ($e->getCode() == 1) throw new \Exception($e->getMessage(),1);
-            throw new \Exception('Error al guardar registro dirección.',1);
+            throw new \Exception('Error al guardar registro de detalle de orden.',1);
         }
     }
     
