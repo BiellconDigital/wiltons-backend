@@ -110,7 +110,7 @@ class CartOrdenRepository extends EntityRepository
         $qbOrden->select( array(
                     "o.idOrden,o.tipoDocumento,o.total,o.fechaProcesado
                      ,m.idMoneda,m.signo,oe.idOrdenEstado,oel.nombre as nombre_estado,
-                     od.productoNombre,odp.imagen
+                     od.productoNombre,od.codigoVariante,odp.imagen
                     ",
                     //select("MIN(od.idOrdenDetalle) as idOrden, od.productoNombre")->from("cart\Entity\CartOrdenDetalle", "od")
                         

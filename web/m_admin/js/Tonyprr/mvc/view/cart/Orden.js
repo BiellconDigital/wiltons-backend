@@ -315,11 +315,23 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
                     columns : [
                         {dataIndex: 'idOrdenDetalle',header : 'ID',width:49, hidden : true},
                         {dataIndex: 'idproducto',header : 'ID Producto',width: 120,hidden : true},
-                        {dataIndex: 'codigoVariante',header : 'Código Var.',width: 80,sortable : false, css:'font-size:10px;color;blue;'},
-                        {dataIndex: 'productoNombre',header : 'Producto',width: 300,sortable : false, css:'font-size:10px;color;blue;'},
+                        {header : 'Código',width: 65,sortable : false
+                            , css:'font-size:10px;color:blue;'
+                            ,xtype:'templatecolumn', tpl: new Ext.XTemplate(
+                            '<tpl if="codigoVariante != null && codigoVariante != \'\'">',
+                                '{codigoVariante}',
+                            '</tpl>',
+                            '<tpl if="codigoVariante == null || codigoVariante == \'\'">',
+                                '{codigoProducto}',
+                            '</tpl>')
+                        },
+                        {dataIndex: 'productoNombre',header : 'Producto',width: 240,sortable : false
+                        , css:'font-size:10px;color:blue;'},
                         {dataIndex: 'cantidad',header : 'Cantidad',width: 70,sortable : false,align:'right'},
-                        {dataIndex: 'precioUnitario',header : 'Precio Unitario',width: 100,sortable : false,align:'right'},
-                        {dataIndex: 'precioTotal',header : 'Precio Total',width: 100,sortable : false,align:'right'},
+                        {header : 'Precio Unitario',width: 84,sortable : false
+                            ,align:'right',xtype:'templatecolumn', tpl:'S/. {precioUnitario}'},
+                        {header : 'Precio Total',width: 90,sortable : false
+                            ,align:'right',xtype:'templatecolumn', tpl:'S/. {precioTotal}'},
                         {dataIndex: 'idOrden',header : 'ID Orden',width: 140,hidden : true}
                     ]
                 }
@@ -359,7 +371,7 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
             ,buttonsAlign:'right',
             buttons : [
                 {
-                    text: 'Actualizar desde VISA'
+                    text: 'Actualizar desde VISA', hidden: true
                 }
                 ,{
                     text:'Guardar',iconCls:'save',
