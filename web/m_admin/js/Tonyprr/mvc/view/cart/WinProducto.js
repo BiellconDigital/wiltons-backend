@@ -184,7 +184,7 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                     {
                                         xtype : 'numberfield',
                                         name:'cantidad',
-                                        minValue : 0,
+//                                        minValue : 0,
                                         fieldLabel: 'Stock',
                                         anchor : '45%',
                                         readOnly : true

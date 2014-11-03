@@ -471,6 +471,8 @@ class CartOrdenRepository extends EntityRepository
             $mensaje = "Se ha generado un nuevo pedido: <br/><br/>";
             $mensaje .= "Nro. Orden: " . $oOrden->getIdOrden() ."<br/>";
             $mensaje .= "Dirección: " . $oOrden->getDireccionPago() ."<br/>";
+            $mensaje .= "Distrito: " . $oOrden->getUbigeo()->getDist() ."<br/>";
+            $mensaje .= "Fecha Envío: " . $oOrden->getFechaEnvio()->format("d-m-Y") ."<br/>";
             $mensaje .= "Cliente: " . $oOrden->getCliente()->getNombres() . " " . $oOrden->getCliente()->getApellidoPaterno() . " " . $oOrden->getCliente()->getApellidoMaterno() . "<br/>";
             $mensaje .= "Costo del Pedido: S/. " . $oOrden->getTotalFinal() ."<br/>";
             $mensaje .= "Costo de Envío: S/. " . $oOrden->getCostoEnvio() ."<br/>";
@@ -479,6 +481,7 @@ class CartOrdenRepository extends EntityRepository
             $objEmail->setBodyHtml($objEmail->convertString($mensaje));
             $objEmail->setFrom($objEmail->getAccount(), $objEmail->convertString($objEmail->getName()) );
             $objEmail->addTo(EMAIL_VENTAS);
+            $objEmail->addTo("tonyprr@gmail.com");
             $objEmail->setSubject($objEmail->convertString("Notificación - Registro de Orden de Compra"));
             $objEmail->send($objEmail->getMailTrans());
 
@@ -509,6 +512,7 @@ class CartOrdenRepository extends EntityRepository
             $objEmail->setBodyHtml($objEmail->convertString($mensaje));
             $objEmail->setFrom($objEmail->getAccount(), $objEmail->convertString($objEmail->getName()) );
             $objEmail->addTo(EMAIL_VENTAS);//ventas.online@mpf.com.pe
+            $objEmail->addTo("tonyprr@gmail.com");
             $objEmail->setSubject($objEmail->convertString("Notificación - Registro de Orden de Compra"));
             $objEmail->send($objEmail->getMailTrans());
 
