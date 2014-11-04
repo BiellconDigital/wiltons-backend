@@ -110,6 +110,16 @@ cart\Entity\CartProducto:
                     onUpdate: CASCADE
                     referencedColumnName: __idTipo
             orphanRemoval: false
+        unidadMedidaVenta:
+            targetEntity: cart\Entity\CartUnidadMedida
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                __idUnidadMedida:
+                    onUpdate: CASCADE
+                    referencedColumnName: __idUnidadMedida
+            orphanRemoval: false
     oneToMany:
         languages:
             targetEntity: cart\Entity\CartProductoLanguage

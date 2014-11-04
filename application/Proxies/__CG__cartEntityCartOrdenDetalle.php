@@ -183,10 +183,22 @@ class CartOrdenDetalle extends \cart\Entity\CartOrdenDetalle implements \Doctrin
         return parent::getCodigoVariante();
     }
 
+    public function setUnidadMedidaVenta(\cart\Entity\CartUnidadMedida $unidadMedidaVenta = NULL)
+    {
+        $this->__load();
+        return parent::setUnidadMedidaVenta($unidadMedidaVenta);
+    }
+
+    public function getUnidadMedidaVenta()
+    {
+        $this->__load();
+        return parent::getUnidadMedidaVenta();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'idOrdenDetalle', 'productoNombre', 'cantidad', 'precioUnitario', 'precioTotal', 'impuestoTotal', 'impuestoRatio', 'codigoVariante', 'fechaRegistro', 'fechaModificacion', 'orden', 'producto');
+        return array('__isInitialized__', 'idOrdenDetalle', 'productoNombre', 'cantidad', 'precioUnitario', 'precioTotal', 'impuestoTotal', 'impuestoRatio', 'codigoVariante', 'fechaRegistro', 'fechaModificacion', 'orden', 'producto', 'unidadMedidaVenta');
     }
 
     public function __clone()

@@ -1,0 +1,32 @@
+cart\Entity\CartUnidadMedida:
+    type: entity
+    repositoryClass: cart\Repositories\CartUnidadMedidaRepository
+    table: cart_unidadMedida
+    fields:
+        idunidadMedida:
+            id: true
+            type: integer
+            unsigned: false
+            nullable: false
+            column: __idUnidadMedida
+            generator:
+                strategy: IDENTITY
+        descripcion:
+            type: string
+            length: 130
+            fixed: false
+            nullable: false
+            column: __descripcion
+        estado:
+            type: boolean
+            nullable: false
+            column: __estado
+        fechaActualizacion:
+            type: datetime
+            nullable: true
+            column: __fecha_actualizacion
+        fechaRegistro:
+            type: datetime
+            nullable: true
+            column: __fecha_registro
+    lifecycleCallbacks: {  }

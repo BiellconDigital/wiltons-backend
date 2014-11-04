@@ -367,4 +367,37 @@ class CartOrdenDetalle
     {
         return $this->codigoVariante;
     }
+    /**
+     * @var cart\Entity\CartUnidadMedida
+     *
+     * @ORM\ManyToOne(targetEntity="cart\Entity\CartUnidadMedida")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="__idUnidadMedida", referencedColumnName="__idUnidadMedida")
+     * })
+     */
+    private $unidadMedidaVenta;
+
+
+    /**
+     * Set unidadMedidaVenta
+     *
+     * @param cart\Entity\CartUnidadMedida $unidadMedidaVenta
+     * @return CartOrdenDetalle
+     */
+    public function setUnidadMedidaVenta(\cart\Entity\CartUnidadMedida $unidadMedidaVenta = null)
+    {
+        $this->unidadMedidaVenta = $unidadMedidaVenta;
+    
+        return $this;
+    }
+
+    /**
+     * Get unidadMedidaVenta
+     *
+     * @return cart\Entity\CartUnidadMedida 
+     */
+    public function getUnidadMedidaVenta()
+    {
+        return $this->unidadMedidaVenta;
+    }
 }

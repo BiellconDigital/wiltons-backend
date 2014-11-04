@@ -339,10 +339,22 @@ class CartProducto extends \cart\Entity\CartProducto implements \Doctrine\ORM\Pr
         return parent::getVariantes();
     }
 
+    public function setUnidadMedidaVenta(\cart\Entity\CartUnidadMedida $unidadMedidaVenta = NULL)
+    {
+        $this->__load();
+        return parent::setUnidadMedidaVenta($unidadMedidaVenta);
+    }
+
+    public function getUnidadMedidaVenta()
+    {
+        $this->__load();
+        return parent::getUnidadMedidaVenta();
+    }
+
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'idproducto', 'codigoProducto', 'precio', 'precio1', 'precio2', 'cantidad', 'cantidadVendidos', 'peso', 'imagen', 'adjunto', 'orden', 'estado', 'fechainipub', 'fechafinpub', 'fechamodif', 'fechareg', 'languages', 'galeria', 'comentarios', 'variantes', 'marca', 'contcate', 'tipo');
+        return array('__isInitialized__', 'idproducto', 'codigoProducto', 'precio', 'precio1', 'precio2', 'cantidad', 'cantidadVendidos', 'peso', 'imagen', 'adjunto', 'orden', 'estado', 'fechainipub', 'fechafinpub', 'fechamodif', 'fechareg', 'languages', 'galeria', 'comentarios', 'variantes', 'marca', 'contcate', 'tipo', 'unidadMedidaVenta');
     }
 
     public function __clone()
