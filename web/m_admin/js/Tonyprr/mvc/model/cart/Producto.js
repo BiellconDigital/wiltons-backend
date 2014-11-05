@@ -25,6 +25,8 @@ Ext.define("Tonyprr.mvc.model.cart.Producto",{
         {name:"idcontcate",type:"integer"},
         {name:"idmarca",type:"integer"},
         {name:"idTipo",type:"integer"},
+        {name:"idunidadMedida",type:"integer"},
+        {name : 'nameUnidadMedidaVenta'},
         {name : 'nameCate'},
         {name : 'nombreMarca'},
         {name : 'nombreTipo'}

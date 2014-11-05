@@ -135,19 +135,6 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                     },
 //                                    {
 //                                        xtype: 'combobox',
-//                                        fieldLabel: 'Marca',
-//                                        anchor : '95%',
-//                                        itemId: 'cboMarcaProdWinProd',
-//                                        name:'idmarca',
-//                                        typeAhead: true,
-//                                        store: 'Tonyprr.mvc.store.cart.Marca',
-//                                        queryMode: 'local',
-//                                        displayField: 'nombre',
-//                                        valueField: 'idmarca',
-//                                        allowBlank:false
-//                                    },
-//                                    {
-//                                        xtype: 'combobox',
 //                                        fieldLabel: 'Tipo',
 //                                        anchor : '95%',
 //                                        itemId: 'cboTipoProdWinProd',
@@ -160,12 +147,35 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
 //                                        allowBlank:false
 //                                    },
                                     {
-                                        xtype : 'numberfield',
-                                        name:'precio',
-                                        minValue : 0,
-                                        fieldLabel: 'Precio',
-                                        anchor : '45%',
-                                        allowBlank:false 
+                                        xtype: 'fieldcontainer',
+                                        fieldLabel: 'Unidad Medida Venta',//(200x130)
+                                        layout: 'hbox',
+                                        items: [
+                                           {
+                                               xtype: 'combobox',
+                                               anchor : '65%',
+                                               itemId: 'cboUnidadMedidaProdWin',
+                                               name:'idunidadMedida',
+                                               typeAhead: true,
+                                               store: 'Tonyprr.mvc.store.cart.UnidadMedida',
+                                               queryMode: 'local',
+                                               displayField: 'descripcion',
+                                               valueField: 'idunidadMedida',
+                                               allowBlank:false
+                                           },
+                                            {
+                                                xtype: 'splitter',
+                                                width : 15
+                                            },
+                                            {
+                                                xtype : 'numberfield',
+                                                name:'precio',
+                                                minValue : 0,
+                                                fieldLabel: 'Precio',
+                                                anchor : '35%',
+                                                allowBlank:false 
+                                            }
+                                        ]
                                     },
 //                                    {
 //                                        xtype : 'numberfield',

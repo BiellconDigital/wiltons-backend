@@ -3,6 +3,8 @@
 namespace cart\Repositories;
 
 use Doctrine\ORM\EntityRepository;
+use Vendors\Paginate\Paginate;
+use Tonyprr\Exception\ValidacionException;
 
 /**
  * CartUnidadMedidaRepository
@@ -12,4 +14,91 @@ use Doctrine\ORM\EntityRepository;
  */
 class CartUnidadMedidaRepository extends EntityRepository
 {
+    public function listRecords($state="TODOS", $pageStart=NULL, $pageLimit=NULL) {
+        $count= 0;
+
+        $qbUnidadMedida = $this->_em->createQueryBuilder();
+        $qbUnidadMedida->select(
+                'um'
+                )->from($this->_entityName,'um')
+                ->orderBy("um.descripcion", "ASC");
+        
+        if ($state != "TODOS")
+            $qbUnidadMedida->andWhere('um.estado = :estado')->setParameter('estado', 1);
+        $qyUnidadMedida = $qbUnidadMedida->getQuery();
+        
+        if ($pageStart!= NULL and $pageLimit!=NULL) {
+            $count = Paginate::getTotalQueryResults($qyUnidadMedida);
+            $qyUnidadMedida->setFirstResult($pageStart)->setMaxResults($pageLimit);
+            $aUnidadMedidas = $qyUnidadMedida->getArrayResult();
+        } else {
+	        $aUnidadMedidas = $qyUnidadMedida->getArrayResult();
+            $count = count($aUnidadMedidas);
+        }
+        $objRecords = \Tonyprr_lib_Records::getInstance();
+        $objRecords->normalizeRecords($aUnidadMedidas);
+//        var_dump($aUnidadMedidas);
+        return array($aUnidadMedidas, $count);
+    }
+    
+    
+    public function save(array $formData) {
+        try {
+                
+            if (is_numeric($formData['idunidadMedida']) ) {
+                $oUnidadMedida = $this->_em->find($this->_entityName, $formData['idunidadMedida'] );
+            } else {
+                $oUnidadMedida = new \cart\Entity\CartUnidadMedida();
+            }
+            $oUnidadMedida->setEstado(isset($formData['estado'])?1:0);
+            $oUnidadMedida->setDescripcion($formData['descripcion']);
+            $oUnidadMedida->setFechaActualizacion( new \DateTime() );
+
+            $this->_em->persist($oUnidadMedida);
+            $this->_em->flush();
+            return $oUnidadMedida;
+        } catch(\Exception $e) {
+            throw new \Exception ("Error al guardar registro.",2);
+        }
+    }
+
+    public function getById($id, $asArray=true, $soloActivo=true) {
+        
+        $dqlList = 'SELECT um from '. $this->_entityName . ' um 
+                    WHERE um.idunidadMedida = ?1';
+        $qyUnidadMedida = $this->_em->createQuery($dqlList);
+        $qyUnidadMedida->setParameter(1, $id);
+        if ($asArray) {
+            $oUnidadMedida = $qyUnidadMedida->getArrayResult();
+            $objRecords = \Tonyprr_lib_Records::getInstance();
+            if (count($oUnidadMedida) != 1)
+                throw new Exception('No existe este registro.',1);
+            $objRecords->normalizeRecord($oUnidadMedida[0]);
+            $oUnidadMedida = $oUnidadMedida[0];
+        } else {
+            $oUnidadMedida = $qyUnidadMedida->getSingleResult();
+        }
+        return $oUnidadMedida;
+    }
+    
+    public function delete($idRegistro) {
+        try {
+            //$oUnidadMedida = new \cart\Entity\CartUnidadMedida();
+            $oUnidadMedida = $this->_em->find($this->_entityName, $idRegistro);
+            $qyTotalProductos = $this->_em->createQuery('SELECT COUNT(p.idproducto) FROM \cart\Entity\CartProducto p WHERE p.marca = ?1')
+                    ->setParameter(1, $oUnidadMedida);
+            $totalProductos = (int) $qyTotalProductos->getSingleScalarResult();
+            
+            if ($totalProductos > 0)
+                throw new ValidacionException("Existe Productos asociados con esta Unidad de Medida", 1);
+            if(!$oUnidadMedida) 
+                throw new ValidacionException("No exite UnidadMedida con el ID ".$idRegistro .".", 1);
+            $this->_em->remove($oUnidadMedida);
+            $this->_em->flush();
+        } catch(ValidacionException $e) {
+            throw new ValidacionException($e->getMessage(), $e->getCode());
+        } catch(\Exception $e) {
+            throw new \Exception("Error en el proceso de eliminar la UnidadMedida.", 1);
+        }
+    }
 }

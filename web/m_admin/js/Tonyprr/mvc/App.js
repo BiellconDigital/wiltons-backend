@@ -222,11 +222,11 @@ Ext.define("Tonyprr.mvc.App",{
                                 text: 'Productos',
                                 expanded: true,
                                 children: [
-//                                    {
-//                                        text: 'Marcas de Productos',
-//                                        leaf: true
-//                                    }
                                     {
+                                        text: 'Unidades de Medida',
+                                        leaf: true
+                                    }
+                                    ,{
                                         text: 'Categorias de Productos',
                                         leaf: true
                                     }
@@ -271,8 +271,8 @@ Ext.define("Tonyprr.mvc.App",{
                                     break;
                                     case 'Promociones' : me.agregarTab('Promociones', 'tabm_promociones', '', true,'Contenido1', 'web');
                                     break;
-//                                    case 'Marcas de Productos' : me.agregarTab('Marcas', 'tabm_marca', '', true, 'Marca', 'cart');
-//                                    break;
+                                    case 'Unidades de Medida' : me.agregarTab('Unidad de Medida', 'tabm_unidadMedida', '', true, 'UnidadMedida', 'cart');
+                                    break;
                                     case 'Categorias de Productos' : me.agregarTab('Categoria de Productos', 'tabm_productoCategoria', '', true,'ProductoCategoria', 'cart');
                                     break;
                                     case 'Registro de Productos' : me.agregarTab('Productos', 'tabm_producto', '', true,'Producto', 'cart');

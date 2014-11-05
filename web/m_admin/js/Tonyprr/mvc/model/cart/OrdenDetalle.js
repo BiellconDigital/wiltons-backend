@@ -13,6 +13,8 @@ Ext.define("Tonyprr.mvc.model.cart.OrdenDetalle",{
         {name:"idproducto", type:"integer"},
         "codigoProducto",
         "codigoVariante",
-        {name:"idOrden", type:"integer"}
+        {name:"idOrden", type:"integer"},
+        {name:"idunidadMedida",type:"integer"},
+        {name : 'nameUnidadMedidaVenta'}
     ]
 });

@@ -11,6 +11,7 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
 //                    ,'Tonyprr.mvc.store.cart.ProductoTipo'
                     ,'Tonyprr.mvc.store.cart.MovimientoStockProducto'
                     ,'Tonyprr.mvc.store.cart.ProductoVariante'
+                    ,'Tonyprr.mvc.store.cart.UnidadMedida'
                   ],
     models	: [
                     'Tonyprr.abstract.Model','Tonyprr.mvc.model.cart.ProductoCategoria',
@@ -22,6 +23,7 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
 //                    ,'Tonyprr.mvc.model.cart.ProductoTipo'
                     ,'Tonyprr.mvc.model.cart.MovimientoStock'
                     ,'Tonyprr.mvc.model.cart.ProductoVariante'
+                    ,'Tonyprr.mvc.model.cart.UnidadMedida'
                   ],
 
     views	: [
@@ -42,10 +44,10 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
             ref: 'winproducto',
             selector: 'panel[itemId="winProducto"]'
         }
-//        ,{
-//            ref: 'cbomarcaprod',
-//            selector: 'combobox[itemId="cboMarcaProdWinProd"]'
-//        }
+        ,{
+            ref: 'cboUnidadMedidaProd',
+            selector: 'combobox[itemId="cboUnidadMedidaProdWin"]'
+        }
 //        ,{
 //            ref: 'cbotipoprod',
 //            selector: 'combobox[itemId="cboTipoProdWinProd"]'
@@ -88,7 +90,10 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
     }
     
     ,onGridAfterRender: function(grid, opts) {
-//        if( Ext.isObject(this.getCbomarcaprod()) ) this.getCbomarcaprod().getStore().load();
+        if( Ext.isObject(this.getCboUnidadMedidaProd()) ) {
+            Ext.apply(this.getCboUnidadMedidaProd().getStore().getProxy().extraParams, {activos : true});
+            this.getCboUnidadMedidaProd().getStore().load();
+        }
 //        if( Ext.isObject(this.getCbotipoprod()) ) this.getCbotipoprod().getStore().load();
     }
     ,onWinAfterRender: function(panel, opts) {

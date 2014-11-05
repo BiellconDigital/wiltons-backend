@@ -325,10 +325,11 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
                                 '{codigoProducto}',
                             '</tpl>')
                         },
-                        {dataIndex: 'productoNombre',header : 'Producto',width: 240,sortable : false
+                        {dataIndex: 'productoNombre',header : 'Producto',width: 210,sortable : false
                         , css:'font-size:10px;color:blue;'},
-                        {dataIndex: 'cantidad',header : 'Cantidad',width: 70,sortable : false,align:'right'},
-                        {header : 'Precio Unitario',width: 84,sortable : false
+                        {dataIndex: 'cantidad',header : 'Cantidad',width: 60,sortable : false,align:'right'},
+                        {dataIndex: 'nameUnidadMedidaVenta',header : 'U. Medida',width: 75,sortable : false},
+                        {header : 'Precio Unitario',width: 80,sortable : false
                             ,align:'right',xtype:'templatecolumn', tpl:'S/. {precioUnitario}'},
                         {header : 'Precio Total',width: 90,sortable : false
                             ,align:'right',xtype:'templatecolumn', tpl:'S/. {precioTotal}'},

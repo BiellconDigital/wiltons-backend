@@ -35,12 +35,16 @@ class CartProductoRepository extends EntityRepository
                     pl.nombre as nombre_producto,pl.intro as intro_producto,pl.ficha,
                     ca.idcontcate,cal.descripcion as nameCate,
                     ma.idmarca,
-                    t.idTipo
+                    t.idTipo,
+                    umv.idunidadMedida, umv.descripcion as nameUnidadMedidaVenta
                     '
                     )
                 ->addSelect("COUNT(v) number_variantes")
                 ->from($this->_entityName,'p')
-                   ->innerJoin('p.contcate','ca')->innerJoin('p.languages','pl')->leftJoin('p.marca','ma')->leftJoin('p.tipo','t')
+                   ->innerJoin('p.contcate','ca')->innerJoin('p.languages','pl')
+                   ->leftJoin('p.marca','ma')
+                   ->leftJoin('p.tipo','t')
+                   ->leftJoin('p.unidadMedidaVenta','umv')
                     ->innerJoin('ca.languages','cal')
                    ->leftJoin('p.variantes', 'v')                   
                     ->andWhere("pl.language = :lang")->setParameter('lang', $oLanguage)

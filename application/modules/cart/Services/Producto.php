@@ -98,6 +98,13 @@ class Producto {
                 $oProducto->setTipo($oProductoTipo);
             }
                 
+            if (isset($formData['idunidadMedida'])) {
+                $oProductoUnidadMedida = $this->_em->find("\cart\Entity\CartUnidadMedida", $formData['idunidadMedida'] );
+                if(!$oProductoUnidadMedida)
+                    throw new \Exception('No existe Unidad de Medida. Seleccione primero uno.');
+                $oProducto->setUnidadMedidaVenta($oProductoUnidadMedida);
+            }
+
 //            $oProducto->setTituloConte($formData['tituloConte']);
             $oProducto->setContcate($oProductoCate);
             $oProducto->setCodigoProducto($formData['codigoProducto']);

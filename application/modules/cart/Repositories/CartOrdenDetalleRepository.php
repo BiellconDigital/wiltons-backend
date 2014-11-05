@@ -25,10 +25,13 @@ class CartOrdenDetalleRepository extends EntityRepository
         $qbOrdenDetalle = $this->_em->createQueryBuilder();
         $qbOrdenDetalle->select(
                     '
-                    od.idOrdenDetalle,od.productoNombre,od.cantidad,od.precioUnitario,od.precioTotal,p.imagen, p.codigoProducto,od.codigoVariante
+                    od.idOrdenDetalle,od.productoNombre,od.cantidad,od.precioUnitario,od.precioTotal
+                    ,p.imagen, p.codigoProducto,od.codigoVariante
+                    ,umv.idunidadMedida, umv.descripcion as nameUnidadMedidaVenta
                     ')
                 ->from($this->_entityName, 'od')
                    ->innerJoin('od.producto','p')
+                   ->leftJoin('od.unidadMedidaVenta','umv')
                    ->orderBy('od.fechaRegistro','DESC')
                    ->where('od.orden = :orden')->setParameter('orden', $oOrden);
         $qyOrdenDetalle = $qbOrdenDetalle->getQuery();//,pa.nombre as nombre_pais
@@ -64,6 +67,13 @@ class CartOrdenDetalleRepository extends EntityRepository
             if(!$oProducto)
                 throw new \Exception('No existe Producto.',1);
             
+            if (isset($formData['idunidadMedida'])) {
+                $oProductoUnidadMedida = $this->_em->find("\cart\Entity\CartUnidadMedida", $formData['idunidadMedida'] );
+                if(!$oProductoUnidadMedida)
+                    throw new \Exception('No existe Unidad de Medida. Seleccione primero uno.');
+                $oOrdenDetalle->setUnidadMedidaVenta($oProductoUnidadMedida);
+            }
+
             
             if (is_numeric($formData['idOrdenDetalle']) ) {
                 $oOrdenDetalle = $this->_em->find($this->_entityName, $formData['idOrdenDetalle'] );
