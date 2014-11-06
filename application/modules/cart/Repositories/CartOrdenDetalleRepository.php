@@ -85,6 +85,7 @@ class CartOrdenDetalleRepository extends EntityRepository
             $oOrdenDetalle->setCantidad($formData['cantidad']);
             $oOrdenDetalle->setOrden($oOrden);
             $oOrdenDetalle->setProducto($oProducto);
+            $oOrdenDetalle->setUnidadMedidaVenta($oProducto->getUnidadMedidaVenta());
             $oOrdenDetalle->setPrecioTotal($formData['precioTotal']);
             $oOrdenDetalle->setPrecioUnitario($formData['precioUnitario']);
             $oOrdenDetalle->setCodigoVariante($formData['codigoVariante']);

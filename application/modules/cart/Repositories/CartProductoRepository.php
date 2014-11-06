@@ -97,9 +97,12 @@ class CartProductoRepository extends EntityRepository
                             ca.idcontcate,cal.descripcion as nameCate,
                             ma.idmarca,
                             t.idTipo
+                            ,umv.idunidadMedida, umv.descripcion as nameUnidadMedidaVenta
                             '
                             )->from($this->_entityName,'p')
-                            ->innerJoin('p.contcate','ca')->innerJoin('p.languages','pl')->leftJoin('p.marca','ma')->leftJoin('p.tipo','t')
+                            ->innerJoin('p.contcate','ca')->innerJoin('p.languages','pl')
+                            ->leftJoin('p.marca','ma')->leftJoin('p.tipo','t')
+                            ->leftJoin('p.unidadMedidaVenta','umv')
                             ->innerJoin('ca.languages','cal')
                             ->andWhere("pl.language = :lang")->setParameter('lang', $oLanguage)
                             ->andWhere("cal.language = :lang")->setParameter('lang', $oLanguage)
