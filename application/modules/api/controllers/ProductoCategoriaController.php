@@ -31,7 +31,7 @@ class Api_ProductoCategoriaController extends Zend_Controller_Action
             $pageStart = isset($data['start'])?$data['start']:NULL;
             $pageLimit = isset($data['limit'])?$data['limit']:NULL;
             $daoProdServ = new ProductoCategoria();
-            $aProductoCategoria = $daoProdServ->aList($idpadre, 1, true, $pageStart, $pageLimit);
+            $aProductoCategoria = $daoProdServ->aList($idpadre, 1, 1, $pageStart, $pageLimit);
             $result['success'] = 1;
             $result['data'] = $aProductoCategoria;
             $result['total'] = count($aProductoCategoria);

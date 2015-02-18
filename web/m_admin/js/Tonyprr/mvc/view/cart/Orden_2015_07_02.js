@@ -292,26 +292,7 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
                     fieldLabel: 'Distrito de Env&iacute;o',
     //                width : 200,
                     name:'distritoEnvio'
-                },{
-                    xtype :'textfield',
-                    fieldLabel: 'E-mail',
-                    name:'email'
-                },{
-                    xtype: 'fieldcontainer',
-                    layout: 'hbox',
-                    fieldLabel: 'Telefono Casa',
-                    items: [
-                        {                            
-                            xtype :'textfield',
-                            name: 'telefonoCasa'
-                        }
-                        ,{xtype: 'splitter', width : 15}
-                        ,{
-                            fieldLabel: 'Movil',
-                            xtype :'textfield',
-                            name: 'movil'
-                        }]
-                    }
+                }
 //                ,{
 //                    xtype :'textfield',
 //                    fieldLabel: 'Persona de recepci&oacute;n',
@@ -400,7 +381,7 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
 //                    disabled: true,
                     scope: this,
                     handler: function (btn,e) {
-                        console.log(Tonyprr.BASE_URL + '/admin/cart-orden/cambiar-estado');
+//                        alert("enviar");
                         meOrden.getComponent('viewFormOrden').getComponent('formWidgetOrden').getForm().submit({
                             url : Tonyprr.BASE_URL + '/admin/cart-orden/cambiar-estado',
                             waitMsg:'Guardando, espere por favor...',
@@ -410,9 +391,6 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
                             success: function(request, action) {
                                 try{
                                     var json = Ext.JSON.decode(action.response.responseText);
-                                   // console.log('msj->'+json.success)
-                                   // console.log('msj->'+json.msg)
-
                                     if(json.success == 1) {
                                         meOrden.getComponent('viewFormOrden').getComponent('formWidgetOrden').getForm().reset();
                                         meOrden.down('grid[itemId="gridOrdenDetalle"]').getStore().removeAll();
@@ -422,11 +400,9 @@ Ext.define("Tonyprr.mvc.view.cart.Orden", {
                                 } catch(Exception) {
                                     Tonyprr.core.Lib.exceptionAlert(Exception);
                                 }
-                                console.log('suxxess');
                             },
                             failure: function(request, action) {
                                 var json = Ext.JSON.decode(action.response.responseText);
-                                console.log('failure');
                                 Ext.MessageBox.alert('Mensaje', json.msg);
                             }
                         });

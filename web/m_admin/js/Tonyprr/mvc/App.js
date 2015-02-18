@@ -238,6 +238,10 @@ Ext.define("Tonyprr.mvc.App",{
                                         text: 'Pedidos',
                                         leaf: true
                                     }
+                                    ,{
+                                        text: 'Productos Especiales',
+                                        leaf: true
+                                    }
 //                                    ,{
 //                                        text: 'Comentarios',
 //                                        leaf: true
@@ -281,6 +285,9 @@ Ext.define("Tonyprr.mvc.App",{
                                     break;
                                     case 'Movimiento de Stock': me.agregarTab('Movimiento de Stock', 'tabm_movStock', '', true, 'MovimientoStock', 'cart');
                                     break;
+                                    case 'Productos Especiales': me.agregarTab('Productos Especiales', 'tabm_productoEsp', '', true, 'ProductoEsp', 'cart');
+                                    break;
+
                                 }
                             }
                         }

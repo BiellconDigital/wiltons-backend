@@ -9,9 +9,9 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
                     ,'Tonyprr.mvc.store.cart.ProductoGaleria'
                     ,'Tonyprr.mvc.store.cart.ProductoGaleriaLanguage'
 //                    ,'Tonyprr.mvc.store.cart.ProductoTipo'
-                    ,'Tonyprr.mvc.store.cart.MovimientoStockProducto'
-                    ,'Tonyprr.mvc.store.cart.ProductoVariante'
-                    ,'Tonyprr.mvc.store.cart.UnidadMedida'
+                    // ,'Tonyprr.mvc.store.cart.MovimientoStockProducto'
+                    // ,'Tonyprr.mvc.store.cart.ProductoVariante'
+                    // ,'Tonyprr.mvc.store.cart.UnidadMedida'
                   ],
     models	: [
                     'Tonyprr.abstract.Model','Tonyprr.mvc.model.cart.ProductoCategoria',
@@ -21,9 +21,9 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
                     ,'Tonyprr.mvc.model.cart.ProductoGaleria'
                     ,'Tonyprr.mvc.model.cart.ProductoGaleriaLanguage'
 //                    ,'Tonyprr.mvc.model.cart.ProductoTipo'
-                    ,'Tonyprr.mvc.model.cart.MovimientoStock'
-                    ,'Tonyprr.mvc.model.cart.ProductoVariante'
-                    ,'Tonyprr.mvc.model.cart.UnidadMedida'
+                    // ,'Tonyprr.mvc.model.cart.MovimientoStock'
+                    // ,'Tonyprr.mvc.model.cart.ProductoVariante'
+                    // ,'Tonyprr.mvc.model.cart.UnidadMedida'
                   ],
 
     views	: [

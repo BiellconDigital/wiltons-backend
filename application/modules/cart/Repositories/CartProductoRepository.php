@@ -51,8 +51,10 @@ class CartProductoRepository extends EntityRepository
                     ->andWhere("cal.language = :lang")->setParameter('lang', $oLanguage)
                     ->groupBy('p.idproducto');
         if ($idcontCate != NULL) $qbProducto->andWhere('p.contcate = :categoria')->setParameter('categoria', $oProductoCategoria);
-        if ($estado != "TODOS")
-            $qbProducto->andWhere('p.estado = :estado')->setParameter('estado', 1);
+        if ($estado != "TODOS") {
+            $qbProducto->andWhere('p.estado = :estado')->setParameter('estado', $estado);
+            $qbProducto->andWhere('ca.stateCate = :estadoc')->setParameter('estadoc', $estado);
+        }
         if ($textoBusqueda != NULL) {
             $qbProducto->andWhere($qbProducto->expr()->orX($qbProducto->expr()->like('pl.nombre', '?1'), $qbProducto->expr()->like('p.codigoProducto', '?1')))->setParameter(1, '%' . $textoBusqueda . '%')->orderBy('pl.nombre','ASC');
         } else {

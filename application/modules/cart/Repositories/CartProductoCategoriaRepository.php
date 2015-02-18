@@ -34,7 +34,9 @@ class CartProductoCategoriaRepository extends EntityRepository
                     ->andWhere("pcl.language = :lang")->setParameter('lang', $oLanguage)
                    ->orderBy('pc.ordenCate','ASC');
         if ($catePadre != NULL) $qbProductoCategoria->andWhere('pc.contcatePadre = :categoria')->setParameter('categoria', $oProductoCategoria);
-        if ($estado != "TODOS") $qbProductoCategoria->andWhere('pc.stateCate = :estado')->setParameter('estado', $estado);
+
+        if ($estado != "TODOS")
+            $qbProductoCategoria->andWhere('pc.stateCate = :estado')->setParameter('estado', $estado);
         $qyProductoCategoria = $qbProductoCategoria->getQuery();
         
         if ($pageStart!= NULL and $pageLimit!=NULL) {

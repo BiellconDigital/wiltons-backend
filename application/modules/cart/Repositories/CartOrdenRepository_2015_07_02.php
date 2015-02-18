@@ -29,7 +29,6 @@ class CartOrdenRepository extends EntityRepository
                      ,m.idMoneda,m.signo
                      ,oe.idOrdenEstado,oel.nombre as nombre_estado
                      ,CONCAT(CONCAT(CONCAT(CONCAT(ou.dpto,' - '),ou.prov),' - '),ou.dist) as distritoEnvio
-                     ,c.email as email, c.telefonoCasa as telefonoCasa, c.movil as movil
                     ")
                 ->addSelect("(CASE WHEN o.tipoPago=1 THEN 'Deposito Bancario'
                     WHEN o.tipoPago=2 THEN 'PayPal'
@@ -420,12 +419,9 @@ class CartOrdenRepository extends EntityRepository
 //                if ($formData['idOrdenEstado'] == \cart\Repositories\CartOrdenEstadoRepository::$CANCELADO)
 //                    throw new \Exception('El pago no puede ser confirmado si no ha verificado el ingreso del Vaucher.', 1);
 //            }
-             if ($formData['idOrdenEstado'] == \cart\Repositories\CartOrdenEstadoRepository::$ANULADO) {
-                //cambie el remove por el persist ya que solo es anulacion y set al estado
-                $oOrdenEstado = $this->_em->getRepository("\cart\Entity\CartOrdenEstado")->find($formData['idOrdenEstado']);
-                $oOrden->setOrdenEstado($oOrdenEstado);
-                //$this->_em->remove($oOrden);
-                $this->_em->persist($oOrden);
+            
+            if ($formData['idOrdenEstado'] == \cart\Repositories\CartOrdenEstadoRepository::$ANULADO) {
+                $this->_em->remove($oOrden);
                 $this->_em->flush();
             } else {
                 if (isset($formData['nroFactura']))
@@ -447,15 +443,17 @@ class CartOrdenRepository extends EntityRepository
 
                         $movientoStockService = new \cart\Services\MovimientoStockService();
                         $movientoStockService->save($dataMov, $oOrdenDetalle->getProducto(), $oOrden);
-                    } 
+                    }
+                    $oOrdenEstado = $this->_em->getRepository("\cart\Entity\CartOrdenEstado")->find($formData['idOrdenEstado']);
+                    $oOrden->setOrdenEstado($oOrdenEstado);
         //            $oOrden->setFechaModificado( new \DateTime() );
     //                $this->notificarPagoConfirmado($oOrden);
                 }
-                $oOrdenEstado = $this->_em->getRepository("\cart\Entity\CartOrdenEstado")->find($formData['idOrdenEstado']);
-                $oOrden->setOrdenEstado($oOrdenEstado);
+            
                 $this->_em->persist($oOrden);
                 $this->_em->flush();
             }
+            
             $this->_em->getConnection()->commit();
             return $oOrden;
         } catch(\Exception $e) {

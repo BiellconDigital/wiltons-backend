@@ -170,7 +170,6 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
                                             {
                                                 xtype : 'numberfield',
                                                 name:'precio',
-                                                decimalSeparator: '.',
                                                 minValue : 0,
                                                 fieldLabel: 'Precio',
                                                 anchor : '35%',

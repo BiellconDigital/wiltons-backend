@@ -35,11 +35,6 @@ Ext.define("Tonyprr.mvc.model.cart.Orden",{
         
         {name:"tipoPago", type:"integer"},
         "tipoPagoDescripcion",
-        "codigoTransaccion",
-        "email",
-        "telefonoCasa",
-        "telefonoOficina",
-        "movil",
-        ""
+        "codigoTransaccion"
     ]
 });

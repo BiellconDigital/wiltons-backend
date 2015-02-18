@@ -43,7 +43,7 @@ class Api_ProductoController extends Zend_Controller_Action
                 $objRecords->normalizeRecords($aProductos);
                 $result['data'] = $aProductos;
             } else if ($data['operacion'] == "getById") {
-                $aProducto = $srvProducto->getById($data['idprod'], 1, true, true);
+                $aProducto = $srvProducto->getById($data['idprod'], 1, true, 1);
                 $result['data'] = $aProducto;
                 $total = 1;
             } else if ($data['operacion'] == "get_galeria") {
