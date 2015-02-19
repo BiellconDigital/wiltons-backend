@@ -1,11 +1,11 @@
-Ext.define("Tonyprr.mvc.view.cart.Producto", {
+Ext.define("Tonyprr.mvc.view.cart.ProductoEsp", {
     extend : "Ext.panel.Panel",
-    alias : 'widget.viewProducto',
+    alias : 'widget.viewProductoEsp',
     minHeight: 200,
     autoWidth : true,
     border : false,
     layout : 'border',
-    itemId:'viewCrudUIProd',
+    itemId:'viewCrudUIProdEsp',
     baseCls : 'x-plain',
     frame : false,
     autoScroll : true,
@@ -13,8 +13,8 @@ Ext.define("Tonyprr.mvc.view.cart.Producto", {
         {
             region : 'west',
             xtype: 'panel',
-            title: 'Lista de Productos',
-            itemId:'viewRecordsProd',
+            title: 'Lista de Productos Especiales',
+            itemId:'viewRecordsProdEsp',
             width : 310,
             border : true,
             frame : false
@@ -24,7 +24,7 @@ Ext.define("Tonyprr.mvc.view.cart.Producto", {
             xtype: 'panel',
             autoWidth : true,
             autoHeight: true,
-            itemId:'viewListProd',
+            itemId:'viewListProdEsp',
             autoScroll:true,
             border : true,
             frame : false
@@ -32,67 +32,17 @@ Ext.define("Tonyprr.mvc.view.cart.Producto", {
     ],
     initComponent : function() {
         this.callParent(arguments);
-        meProd = this;
-        
-        var storeCateProdProdTree = Ext.create('Tonyprr.mvc.store.cart.ProductoCategoriaTree');
-        gridTreeProd = Ext.create("Ext.tree.Panel", {
-            alias : 'widget.viewCateProdProdTree',
-//            id : 'idCateProdProdTree',
-            itemId:'viewCateProdProdTree',
-            autoWidth: true,
-            height: 150,
-            autoScroll: true,
-            useArrows: true,
-            rootVisible: false,
-            store: storeCateProdProdTree,//'Tonyprr.mvc.store.cart.ProductoCategoriaTree',
-            multiSelect: false,
-            singleExpand: false,
-            columns: [
-                {
-                    xtype: 'treecolumn',
-                    text: 'Categoria',
-                    flex: 1,
-                    dataIndex: 'nameCate'
-                },{
-                    text: 'ID',
-                    dataIndex: 'idcontcate',
-                    hidden: true
-                },{
-                    text: 'nivel',
-                    dataIndex: 'nivelCate',
-                    hidden: true
-                },{
-                    text: 'Estado',
-                    dataIndex: 'stateCate',
-                    sorteable: false,
-                    align : 'center',
-                    width: 50,
-                    renderer: Tonyprr.core.Lib.checkRender
-                }
-            ]
-//            ,dockedItems : [{
-//                xtype: 'toolbar',
-//                dock: 'top',
-//                items: [
-//                    '-',
-//                    {
-//                        text:'Agregar Nuevo',
-//                        iconCls : 'add'
-//                    },'-'
-//                ]
-//            }]
-        });
-        
+        meProdEsp = this;
         
 //        var storeProducto = Ext.create('Tonyprr.mvc.store.cart.Producto');
-        Ext.create('Tonyprr.mvc.store.cart.Producto', {storeId:'ProductoStore'});
+        Ext.create('Tonyprr.mvc.store.cart.Producto', {storeId:'ProductoEspStore'});
         
         panelView = Ext.create("Ext.grid.Panel", {
             frame:true,
-            itemId:'viewListProdWidget',
+            itemId:'viewListProdEspWidget',
             columnLines : true,
             autoScroll:true,
-            store: Ext.data.StoreManager.lookup('ProductoStore'),
+            store: Ext.data.StoreManager.lookup('ProductoEspStore'),
 //            border:false,
             style: {
                 width: '95%'
@@ -116,33 +66,24 @@ Ext.define("Tonyprr.mvc.view.cart.Producto", {
                         icon: Tonyprr.Constants.IMAGE_EDIT,
                         tooltip: 'Editar el Registro',
                         handler: function(grid, rowIndex, colIndex) {
-//                            meProd.getComponent('viewListProd').expand(true);
-//                            meProd.down('grid[itemId="viewListProdWidget"]').toggleCollapse();
-                            meProd.down('panel[itemId="winProducto"]').getComponent(0).loadRecord(grid.getStore().getAt(rowIndex));
-                            meProd.down('panel[itemId="winProducto"]').getComponent(0).getForm().setValues({borrarAdj: 0});
+//                            meProdEsp.getComponent('viewListProdEsp').expand(true);
+//                            meProdEsp.down('grid[itemId="viewListProdEspWidget"]').toggleCollapse();
+                            meProdEsp.down('panel[itemId="winProductoEsp"]').getComponent(0).loadRecord(grid.getStore().getAt(rowIndex));
+                            meProdEsp.down('panel[itemId="winProductoEsp"]').getComponent(0).getForm().setValues({borrarAdj: 0});
                             
                             idReg = grid.getStore().getAt(rowIndex).get('idproducto');
-                            // storeLanguage = grid.up('panel[itemId="viewCrudUIProd"]').down('grid[itemId="gridProdLanguage"]').getStore();
+                            // storeLanguage = grid.up('panel[itemId="viewCrudUIProdEsp"]').down('grid[itemId="gridProdLanguage"]').getStore();
                             // Ext.apply(storeLanguage.getProxy().extraParams, {idproducto: idReg});
                             // storeLanguage.load();
 
-                            meProd.down('panel[itemId="panelGaleWidget"]').getComponent(0).getForm().reset();
-                            meProd.down('grid[itemId="gridProdGaleriaLanguage"]').getStore().removeAll();
+                            meProdEsp.down('panel[itemId="panelGaleProdEspWidget"]').getComponent(0).getForm().reset();
+                            meProdEsp.down('grid[itemId="gridProdEspGaleriaLanguage"]').getStore().removeAll();
                             
-                            storeGaleria = meProd.down('dataview[itemId="viewGaleWidget"]').getStore();
+                            storeGaleria = meProdEsp.down('dataview[itemId="viewGaleProdEspWidget"]').getStore();
                             Ext.apply( storeGaleria.getProxy().extraParams, {idproducto: idReg} );
                             storeGaleria.load();
                             
-                            storeVariante = meProd.down('panel[itemId="panelVariantesWidget"]').getComponent(0).getStore();
-                            Ext.apply( storeVariante.getProxy().extraParams, {idproducto: idReg} );
-                            storeVariante.load();
-                            
-                            meProd.down('form[itemId="formWidgetMovimientoStock"]').getForm().reset();
-                            storeMoviStock = meProd.down('grid[itemId="gridWidgetMovimientoStock"]').getStore();
-                            Ext.apply( storeMoviStock.getProxy().extraParams, {idproducto: idReg} );
-                            storeMoviStock.load();
-
-//                            storeGaleria = meProd.down('dataview[itemId="viewGaleWidget"]').getStore();
+//                            storeGaleria = meProdEsp.down('dataview[itemId="viewGaleProdEspWidget"]').getStore();
 //                            Ext.apply( storeGaleria.getProxy().extraParams, {idproducto: idReg} );
 //                            storeGaleria.load();
                         }
@@ -197,18 +138,16 @@ Ext.define("Tonyprr.mvc.view.cart.Producto", {
             bbar : Ext.create('Ext.toolbar.Paging', {
                 itemId:'gridPagingWidgetProd',
                 pageSize: 15,
-                store: Ext.data.StoreManager.lookup('ProductoStore'),
+                store: Ext.data.StoreManager.lookup('ProductoEspStore'),
                 displayInfo: true
             })
         });
         
-        panelForm = Ext.create('Tonyprr.mvc.view.cart.WinProducto');
-        meProd.getComponent('viewRecordsProd').add(gridTreeProd);
-        meProd.getComponent('viewRecordsProd').add(panelView);
-        meProd.getComponent('viewListProd').add(panelForm);
+        panelForm = Ext.create('Tonyprr.mvc.view.cart.WinProductoEsp');
+        meProdEsp.getComponent('viewRecordsProdEsp').add(panelView);
+        meProdEsp.getComponent('viewListProdEsp').add(panelForm);
 
         delete panelView;
-        delete gridTreeProd;
         delete panelForm;
         
     }

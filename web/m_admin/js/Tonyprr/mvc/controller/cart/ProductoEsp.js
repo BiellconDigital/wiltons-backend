@@ -1,4 +1,4 @@
-Ext.define('Tonyprr.mvc.controller.cart.Producto', {
+Ext.define('Tonyprr.mvc.controller.cart.ProductoEsp', {
     extend	: 'Ext.app.Controller',
     stores	: [
                     'Tonyprr.abstract.Store','Tonyprr.mvc.store.cart.ProductoCategoriaTree',
@@ -11,7 +11,7 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
 //                    ,'Tonyprr.mvc.store.cart.ProductoTipo'
                     // ,'Tonyprr.mvc.store.cart.MovimientoStockProducto'
                     // ,'Tonyprr.mvc.store.cart.ProductoVariante'
-                    // ,'Tonyprr.mvc.store.cart.UnidadMedida'
+                    ,'Tonyprr.mvc.store.cart.UnidadMedida'
                   ],
     models	: [
                     'Tonyprr.abstract.Model','Tonyprr.mvc.model.cart.ProductoCategoria',
@@ -23,30 +23,30 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
 //                    ,'Tonyprr.mvc.model.cart.ProductoTipo'
                     // ,'Tonyprr.mvc.model.cart.MovimientoStock'
                     // ,'Tonyprr.mvc.model.cart.ProductoVariante'
-                    // ,'Tonyprr.mvc.model.cart.UnidadMedida'
+                    ,'Tonyprr.mvc.model.cart.UnidadMedida'
                   ],
 
     views	: [
-                    'Tonyprr.mvc.view.cart.Producto'
-                    ,'Tonyprr.mvc.view.cart.WinProducto'
+                    'Tonyprr.mvc.view.cart.ProductoEsp'
+                    ,'Tonyprr.mvc.view.cart.WinProductoEsp'
 //                    ,'Tonyprr.mvc.view.cart.ProductoCategoriaTree'
                   ],
     refs: [
         {
             ref: 'panelViewListProd',
-            selector: 'panel[itemId="viewListProd"]'
+            selector: 'panel[itemId="viewListProdEsp"]'
         }
         ,{
             ref: 'listviewprod',
-            selector: 'panel[itemId="viewRecordsProd"]'
+            selector: 'panel[itemId="viewRecordsProdEsp"]'
         }
         ,{
             ref: 'winproducto',
-            selector: 'panel[itemId="winProducto"]'
+            selector: 'panel[itemId="winProductoEsp"]'
         }
         ,{
             ref: 'cboUnidadMedidaProd',
-            selector: 'combobox[itemId="cboUnidadMedidaProdWin"]'
+            selector: 'combobox[itemId="cboUnidadMedidaProdEspWin"]'
         }
 //        ,{
 //            ref: 'cbotipoprod',
@@ -54,39 +54,35 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
 //        }
 //        ,{
 //            ref : 'viewgaleria',
-//            selector : 'dataview[itemId="viewGaleWidget"]'
+//            selector : 'dataview[itemId="viewGaleProdEspWidget"]'
 //        }
     ],
     init	: function(app) {
         this.callParent(null);
         this.control({
-            'grid[itemId="viewListProdWidget"]': {
+            'grid[itemId="viewListProdEspWidget"]': {
                 afterrender : this.onGridAfterRender
             }
-            ,'grid[itemId="viewListProdWidget"] button[text="Agregar Producto"]': {
+            ,'grid[itemId="viewListProdEspWidget"] button[text="Agregar Producto"]': {
                 click : this.onClickAddProd
             }
 
-            ,'treepanel[itemId="viewCateProdProdTree"]': {
-                select : this.onSelectCategoria
-            }
-
-            ,'panel[itemId="winProducto"]': {
+            ,'panel[itemId="winProductoEsp"]': {
                 afterrender : this.onWinAfterRender
             }
-            ,'panel[itemId="winProducto"] button[text="Guardar"]': {
+            ,'panel[itemId="winProductoEsp"] button[text="Guardar"]': {
                 click : this.onClickSaveProd
             }
-/*            ,'panel[itemId="winProducto"] button[text="guardar idioma"]': {
+/*            ,'panel[itemId="winProductoEsp"] button[text="guardar idioma"]': {
                 click : this.onClickSaveLanguage
             }
 */        });
     },
     
     initView: function(parent) {
-        var viewProducto = Ext.widget('viewProducto');
-        parent.add(viewProducto);
-        viewProducto.setHeight(parent.getHeight());
+        var viewProductoEsp = Ext.widget('viewProductoEsp');
+        parent.add(viewProductoEsp);
+        viewProductoEsp.setHeight(parent.getHeight());
     }
     
     ,onGridAfterRender: function(grid, opts) {
@@ -94,51 +90,42 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
             Ext.apply(this.getCboUnidadMedidaProd().getStore().getProxy().extraParams, {activos : true});
             this.getCboUnidadMedidaProd().getStore().load();
         }
+
+        try {
+            Ext.apply(Ext.data.StoreManager.lookup('ProductoEspStore').getProxy().extraParams, 
+                    {idTipo : 2});
+            Ext.data.StoreManager.lookup('ProductoEspStore').load();
+        } catch(Exception) {
+            console.log(Exception);
+            try {
+                Ext.data.StoreManager.lookup('ProductoEspStore').load();
+            } catch(Exception) {
+                try {
+                    Ext.data.StoreManager.lookup('ProductoEspStore').load();
+                } catch(Exception) {
+                    try {
+                        Ext.data.StoreManager.lookup('ProductoEspStore').load();
+                    } catch(Exception) {
+                        try {
+                            Ext.data.StoreManager.lookup('ProductoEspStore').load();
+                        } catch(Exception) {
+                            Ext.data.StoreManager.lookup('ProductoEspStore').load();
+                        }
+                    }
+                }
+            }
+        }
+
 //        if( Ext.isObject(this.getCbotipoprod()) ) this.getCbotipoprod().getStore().load();
     }
     ,onWinAfterRender: function(panel, opts) {
 //        this.getCbomarcaprod().getStore().load();
     }
 
-    ,onSelectCategoria: function(tree, model, index) {
-        try {
-        idReg = model.get('idcontcate');
-//        var storeProds = this.getListviewprod().getComponent(1).getStore();
-        Ext.apply(Ext.data.StoreManager.lookup('ProductoStore').getProxy().extraParams, {idcontcate : idReg});
-        Ext.data.StoreManager.lookup('ProductoStore').load();
-        } catch(Exception) {
-            console.log(Exception);
-            try {
-                Ext.data.StoreManager.lookup('ProductoStore').load();
-            } catch(Exception) {
-                try {
-                    Ext.data.StoreManager.lookup('ProductoStore').load();
-                } catch(Exception) {
-                    try {
-                        Ext.data.StoreManager.lookup('ProductoStore').load();
-                    } catch(Exception) {
-                        try {
-                            Ext.data.StoreManager.lookup('ProductoStore').load();
-                        } catch(Exception) {
-                            Ext.data.StoreManager.lookup('ProductoStore').load();
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     ,onClickAddProd: function(button,e) {
         try {
-            select = this.getListviewprod().getComponent(0).getSelectionModel().getSelection();
-            if (select == "") {
-                return;
-            }
-            idCategoria = select[0].get('idcontcate');
-            idDescCate = select[0].get('nameCate');
-
             this.getWinproducto().getComponent(0).getForm().reset();
-            this.getWinproducto().getComponent(0).getForm().setValues({idcontcate: idCategoria, nameCate:idDescCate, idTipo : 1});
+            this.getWinproducto().getComponent(0).getForm().setValues({idTipo : 2});
             
             //this.getWinproducto().down(('form[itemId="formProdLanguage"]')).getForm().reset();
 //            this.getWinproducto().down(('grid[itemId="gridProdLanguage"]')).getStore().removeAll();
@@ -160,7 +147,7 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
                     try {
                         var json = Ext.JSON.decode(action.response.responseText);
                         if(json.success == 1) {
-                            controller.getListviewprod().getComponent(1).getStore().load();
+                            controller.getListviewprod().getComponent(0).getStore().load();
                             formProd = controller.getWinproducto().getComponent(0);
                             formProd.getForm().setValues({idproducto:json.idproducto});
                             
@@ -197,7 +184,7 @@ Ext.define('Tonyprr.mvc.controller.cart.Producto', {
                 success: function(form, action) {
                     Tonyprr.App.showNotification({message:action.result.msg});
 //                    controller.getWinproducto().down('grid[itemId="gridProdLanguage"]').getStore().load();
-                    controller.getListviewprod().getComponent(1).getStore().load();
+                    controller.getListviewprod().getComponent(0).getStore().load();
                 }
                 ,failure: function(form, action) {
                     Ext.Msg.alert('Fallido', action.result.msg);

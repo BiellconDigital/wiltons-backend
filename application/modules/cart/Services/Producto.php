@@ -40,9 +40,9 @@ class Producto {
      * 
      * @return array
      */
-    public function aList($idcontCate=NULL, $oLanguage=1, $estado="TODOS", $pageStart=NULL, $pageLimit=NULL, $textoBusqueda=NULL, $stock=0) {
+    public function aList($idcontCate=NULL, $idTipo, $oLanguage=1, $estado="TODOS", $pageStart=NULL, $pageLimit=NULL, $textoBusqueda=NULL, $stock=0) {
         
-        $aResult = $this->_em->getRepository($this->_entityName)->listRecords($idcontCate, $oLanguage, $estado, $pageStart, $pageLimit, $textoBusqueda, $stock);
+        $aResult = $this->_em->getRepository($this->_entityName)->listRecords($idcontCate, $idTipo, $oLanguage, $estado, $pageStart, $pageLimit, $textoBusqueda, $stock);
         return $aResult;
     }
     
@@ -80,10 +80,15 @@ class Producto {
                 }
             }
 
-            $oProductoCate = $this->_em->find("\cart\Entity\CartProductoCategoria", $formData['idcontcate'] );
-            if(!$oProductoCate)
-                throw new \Exception('No existe categoría. Seleccione primero una Categoria.');
-                
+            if(isset($formData['idcontcate'])) {
+                $oProductoCate = $this->_em->find("\cart\Entity\CartProductoCategoria", $formData['idcontcate'] );
+                if(!$oProductoCate)
+                //     throw new \Exception('No existe categoría. Seleccione primero una Categoria.');
+                    $oProductoCate = null;
+            } else {
+                    $oProductoCate = null;
+            }
+
             if (isset($formData['idmarca'])) {
                 $oProductoMarca = $this->_em->find("\cart\Entity\CartMarca", $formData['idmarca'] );
                 if(!$oProductoMarca)
@@ -177,7 +182,7 @@ class Producto {
             }
             return $oProducto;
         } catch(\Exception $e) {
-            throw new \Exception("Error al guardar registro. ", 1);//$e->getMessage()
+            throw new \Exception("Error al guardar registro. " . $e->getMessage(), 1);//$e->getMessage()
         }
     }
     

@@ -25,10 +25,11 @@ class Admin_CartProductoController extends Zend_Controller_Action
                 $pageStart = isset($data['start'])?$data['start']:NULL;
                 $pageLimit = isset($data['limit'])?$data['limit']:NULL;
                 $idcontCate = isset($data['idcontcate'])?$data['idcontcate']:NULL;
+                $idTipo = isset($data['idTipo'])?$data['idTipo']: 1;
                 $textoBusqueda = isset($data['query'])?$data['query']:NULL;
                 
                 $srvProducto = new Producto();
-                list($aProductos, $total, $oProductoCategoria) = $srvProducto->aList($idcontCate, 1 ,"TODOS", $pageStart, $pageLimit, $textoBusqueda);
+                list($aProductos, $total, $oProductoCategoria) = $srvProducto->aList($idcontCate, $idTipo, 1 ,"TODOS", $pageStart, $pageLimit, $textoBusqueda);
                 $objRecords=\Tonyprr_lib_Records::getInstance();
                 $objRecords->normalizeRecords($aProductos);
                 $result['success'] = 1;

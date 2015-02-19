@@ -124,6 +124,10 @@ Ext.define('Tonyprr.mvc.view.cart.WinProducto', {
 //                                    },
                                     {
                                         xtype: 'hidden',
+                                        name:'idTipo'
+                                    },
+                                    {
+                                        xtype: 'hidden',
                                         name:'idcontcate'
                                     },
                                     {

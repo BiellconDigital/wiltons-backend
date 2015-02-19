@@ -13,7 +13,7 @@ use Vendors\Paginate\Paginate;
  */
 class CartProductoRepository extends EntityRepository
 {
-    public function listRecords($idcontCate=NULL, $oLanguage=1, $estado="TODOS", $pageStart=NULL, $pageLimit=NULL, $textoBusqueda=NULL, $stock=0) {
+    public function listRecords($idcontCate=NULL, $idTipo, $oLanguage=1, $estado="TODOS", $pageStart=NULL, $pageLimit=NULL, $textoBusqueda=NULL, $stock=0) {
         $count= NULL;
         if(!$oLanguage instanceof \web\Entity\CmsLanguage)
             $oLanguage = $this->_em->getRepository("\web\Entity\CmsLanguage")->findOneByidLanguage($oLanguage);
@@ -41,19 +41,24 @@ class CartProductoRepository extends EntityRepository
                     )
                 ->addSelect("COUNT(v) number_variantes")
                 ->from($this->_entityName,'p')
-                   ->innerJoin('p.contcate','ca')->innerJoin('p.languages','pl')
+                   ->leftJoin('p.contcate','ca')->innerJoin('p.languages','pl')
                    ->leftJoin('p.marca','ma')
                    ->leftJoin('p.tipo','t')
                    ->leftJoin('p.unidadMedidaVenta','umv')
-                    ->innerJoin('ca.languages','cal')
+                    ->leftJoin('ca.languages','cal')
                    ->leftJoin('p.variantes', 'v')                   
                     ->andWhere("pl.language = :lang")->setParameter('lang', $oLanguage)
-                    ->andWhere("cal.language = :lang")->setParameter('lang', $oLanguage)
+                    
+                    ->andWhere("t.idTipo = :tipo")->setParameter('tipo', $idTipo)
                     ->groupBy('p.idproducto');
-        if ($idcontCate != NULL) $qbProducto->andWhere('p.contcate = :categoria')->setParameter('categoria', $oProductoCategoria);
+        if ($idcontCate != NULL) 
+            $qbProducto->andWhere('p.contcate = :categoria')
+                ->setParameter('categoria', $oProductoCategoria)
+                ->andWhere("cal.language = :lang")->setParameter('lang', $oLanguage);
         if ($estado != "TODOS") {
             $qbProducto->andWhere('p.estado = :estado')->setParameter('estado', $estado);
-            $qbProducto->andWhere('ca.stateCate = :estadoc')->setParameter('estadoc', $estado);
+            if ($idcontCate != NULL) 
+                $qbProducto->andWhere('ca.stateCate = :estadoc')->setParameter('estadoc', $estado);
         }
         if ($textoBusqueda != NULL) {
             $qbProducto->andWhere($qbProducto->expr()->orX($qbProducto->expr()->like('pl.nombre', '?1'), $qbProducto->expr()->like('p.codigoProducto', '?1')))->setParameter(1, '%' . $textoBusqueda . '%')->orderBy('pl.nombre','ASC');
@@ -102,12 +107,20 @@ class CartProductoRepository extends EntityRepository
                             ,umv.idunidadMedida, umv.descripcion as nameUnidadMedidaVenta
                             '
                             )->from($this->_entityName,'p')
-                            ->innerJoin('p.contcate','ca')->innerJoin('p.languages','pl')
+                            ->leftJoin('p.contcate','ca')->innerJoin('p.languages','pl')
                             ->leftJoin('p.marca','ma')->leftJoin('p.tipo','t')
                             ->leftJoin('p.unidadMedidaVenta','umv')
-                            ->innerJoin('ca.languages','cal')
+
+                            ->leftJoin('ca.languages','cal')
                             ->andWhere("pl.language = :lang")->setParameter('lang', $oLanguage)
-                            ->andWhere("cal.language = :lang")->setParameter('lang', $oLanguage)
+
+->add('where', $qbProducto->expr()->orX(
+       $qbProducto->expr()->eq('cal.language', ':lang'),
+       $qbProducto->expr()->isNull('p.contcate')
+   ))                            
+//->andWhere("cal.language = :lang")
+->setParameter('lang', $oLanguage)
+
                             ->andWhere("p.estado = :estado")->setParameter('estado', $soloActivo)
                             ->andWhere("p.idproducto = :id")->setParameter('id', $id);
                 $qyProducto = $qbProducto->getQuery();
